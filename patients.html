@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Is this the menopause?</title>
+<meta name="description" content="Fan and card about the menopause transition, for patients">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@600;700&display=swap">
+<style>
+/* Layout: one centred column; each material gets its own band with a large interactive stage, controls under it. */
+:root {
+  --ink: #473D3C;        /* Ksyos tekstbruin */
+  --ink-soft: #6f6260;
+  --pink: #E50376;       /* zorgverleners */
+  --orange: #FE9E31;     /* patiënten */
+  --tint-pink: #FAF1F2;
+  --tint-orange: #FFF7EB;
+  --line: #E4E2DD;
+  --stone: #CBC4BD;
+  --paper: #FFFFFF;
+  --accent: var(--orange);
+  --accent-ink: #9a5200;
+  --band: var(--tint-orange);
+  --f-display: 'Inter Tight', 'Aktiv Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --f-body: 'Inter', 'Aktiv Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.55; margin: 0; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.5rem, 7vw, 4.4rem); }
+h2 { font-size: clamp(2rem, 4.8vw, 3.1rem); }
+h3 { font-size: 1.2rem; letter-spacing: -0.01em; }
+p { margin: 0; }
+.hl { color: var(--pink); }
+.or { color: var(--orange); }
+.lead { font-size: clamp(1.08rem, 2vw, 1.25rem); max-width: none; color: var(--ink-soft); }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; border-radius: 6px; }
+
+/* top bar */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--paper); }
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 25; background: rgba(255,255,255,.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+.topbar.scrolled { border-bottom-color: var(--line); }
+.top { padding-block: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.top img { height: 30px; width: auto; display: block; }
+.top nav { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.top nav a { text-decoration: none; font-size: .92rem; padding: 6px 12px; border-radius: 999px; color: var(--ink-soft); }
+.top nav a:hover { background: var(--band); color: var(--ink); }
+.top nav a.active { background: var(--ink); color: #fff; }
+html { scroll-padding-top: calc(var(--navh, 64px) + 8px); }
+
+/* hero */
+.hero { padding-block: 28px 44px; display: grid; gap: 18px; }
+.eyebrow { font-size: .8rem; letter-spacing: .09em; text-transform: uppercase; font-weight: 600; color: var(--accent-ink); }
+
+/* bands */
+.band { background: var(--band); padding-block: 56px 64px; }
+.band + .band { border-top: 1px solid var(--line); }
+.band.plain { background: var(--paper); }
+.band-head { display: grid; gap: 12px; margin-bottom: 30px; }
+.band-head p { text-wrap: pretty; max-width: none; color: var(--ink-soft); font-size: 1.05rem; }
+.kicker { font-family: var(--f-display); font-weight: 600; font-size: 1.15rem; color: var(--accent-ink); }
+
+/* controls */
+.controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: center; margin-top: 22px; }
+.seg { display: inline-flex; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 4px; gap: 2px; }
+.seg button { border: 0; background: transparent; font: inherit; font-size: .92rem; padding: 8px 16px; border-radius: 999px; cursor: pointer; color: var(--ink-soft); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); font: inherit; font-size: .95rem; font-weight: 600; padding: 10px 18px; border-radius: 999px; cursor: pointer; text-decoration: none; }
+.btn:hover { background: var(--ink); color: #fff; }
+.btn.solid { background: var(--ink); color: #fff; }
+.btn.solid:hover { background: #2f2827; }
+.btn svg { width: 18px; height: 18px; flex: none; }
+.range { display: inline-flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--ink-soft); }
+.range input { accent-color: var(--accent); width: 160px; }
+
+/* ---------- swatch fan (Waaier B), echte 3D: omdraaien spiegelt de hele waaier ---------- */
+.fan-3d { perspective: 2400px; display: flex; justify-content: center; }
+.fan-stage { position: relative; transform-style: preserve-3d; transition: transform 1s cubic-bezier(.4,.1,.2,1); touch-action: pan-y; }
+.blade { position: absolute; border: 0; padding: 0; background: none; cursor: pointer; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.2,.8,.2,1); }
+.blade .card { display: block; position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
+.face { display: block; position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.face img { width: 100%; height: 100%; display: block; filter: drop-shadow(0 2px 3px rgba(71,61,60,.2)); }
+.face.back { transform: rotateY(180deg); }
+.blade:hover .face img, .blade:focus-visible .face img { filter: drop-shadow(0 6px 12px rgba(71,61,60,.32)); }
+.screw { position: absolute; pointer-events: none; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.screw svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+/* ---------- folding fan (Waaier A) ---------- */
+.leaf-stage { position: relative; margin: 0 auto; max-width: 980px; cursor: zoom-in; touch-action: pan-y; }
+.leaf-stage canvas { width: 100%; height: auto; display: block; }
+.leaf-stage.dragging { cursor: grabbing; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: center; margin-top: 18px; font-size: .92rem; color: var(--ink-soft); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+
+/* ---------- flip card (huisartskaart) ---------- */
+.flip { width: min(440px, 100%); margin: 0 auto; aspect-ratio: 1000 / 1402; perspective: 1800px; border: 0; padding: 0; background: none; cursor: pointer; display: block; }
+.flip .card { display: block; position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.3,.7,.2,1); }
+.flip.flipped .card { transform: rotateY(180deg); }
+.flip .face img { border-radius: 4px; box-shadow: 0 10px 30px rgba(71,61,60,.16); filter: none; }
+
+/* ---------- page flipper (patiëntkaart) ---------- */
+.book { display: grid; gap: 18px; justify-items: center; }
+.spreads { position: relative; width: min(880px, 100%); aspect-ratio: 1800 / 1273; perspective: 2400px; cursor: pointer; }
+.view { position: absolute; inset: 0; display: flex; justify-content: center; transition: opacity .55s ease, transform .6s cubic-bezier(.3,.7,.2,1); }
+.view.off { opacity: 0; pointer-events: none; transform: scale(.96); }
+.view img { width: 100%; height: 100%; display: block; }
+.single { width: 50%; height: 100%; position: relative; }
+/* dichtgevouwen: papierlagen aan de vouwkant */
+.single.cover img { border-radius: 0 4px 4px 0; box-shadow: -1.5px 1px 0 #efe6d6, 0 12px 26px rgba(71,61,60,.14); }
+.single.backc img { border-radius: 4px 0 0 4px; box-shadow: 1.5px 1px 0 #efe6d6, 0 12px 26px rgba(71,61,60,.14); }
+.single.cover::after, .single.backc::after { content: ""; position: absolute; top: 0; bottom: 0; width: 4%; pointer-events: none; }
+.single.cover::after { left: 0; background: linear-gradient(90deg, rgba(71,61,60,.05), transparent); }
+.single.backc::after { right: 0; background: linear-gradient(270deg, rgba(71,61,60,.05), transparent); }
+/* opengevouwen: twee helften met een vouw in het midden */
+.spread { width: 100%; height: 100%; display: flex; transform-style: preserve-3d; filter: drop-shadow(0 14px 22px rgba(71,61,60,.2)); }
+.half { width: 50%; height: 100%; position: relative; transition: transform .8s cubic-bezier(.3,.7,.2,1); }
+.half.l { transform-origin: 100% 50%; transform: rotateY(9deg); }
+.half.r { transform-origin: 0% 50%; transform: rotateY(-9deg); }
+.view.off .half.l { transform: rotateY(75deg); }
+.view.off .half.r { transform: rotateY(-75deg); }
+.half.l img { border-radius: 4px 0 0 4px; }
+.half.r img { border-radius: 0 4px 4px 0; }
+.half::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
+.half.l::after { background: linear-gradient(90deg, transparent 72%, rgba(71,61,60,.035) 92%, rgba(71,61,60,.09)); }
+.half.r::after { background: linear-gradient(270deg, transparent 80%, rgba(255,255,255,.05) 94%, rgba(71,61,60,.05)); }
+.pager { display: flex; align-items: center; gap: 14px; }
+.pager .count { font-variant-numeric: tabular-nums; font-size: .95rem; min-width: 4.5em; text-align: center; }
+.iconbtn { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); display: inline-grid; place-items: center; cursor: pointer; flex: none; }
+.iconbtn:hover:not(:disabled) { background: var(--ink); color: #fff; }
+.iconbtn:disabled { opacity: .3; cursor: default; }
+.iconbtn svg { width: 20px; height: 20px; }
+.thumbs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.thumbs button { border: 2px solid transparent; padding: 0; border-radius: 4px; background: none; cursor: pointer; width: 64px; opacity: .6; display: flex; }
+.thumbs button.dbl { width: 128px; }
+.thumbs button.dbl img { width: 50%; }
+.thumbs button[aria-current="true"] { border-color: var(--accent); opacity: 1; }
+.thumbs img { width: 100%; display: block; border-radius: 2px; }
+.pagelabel { font-weight: 600; font-size: 1rem; }
+
+/* ---------- verwijzen (zoals op de kaart) ---------- */
+.refer { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px 48px; align-items: start; }
+.refer > div { min-width: 0; display: grid; gap: 14px; align-content: start; }
+.refer h3 { color: var(--pink); font-size: 1.25rem; }
+.path { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.chip { background: var(--pink); color: #fff; font-weight: 600; font-size: .92rem; padding: 5px 12px; border-radius: 6px; }
+.path .sep { color: var(--ink-soft); font-weight: 600; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 32px 1fr; gap: 14px; counter-increment: s; }
+.steps li::before { content: counter(s); width: 32px; height: 32px; border-radius: 50%; background: var(--pink); color: #fff; font-weight: 700; display: grid; place-items: center; font-family: var(--f-display); }
+.steps strong { display: block; }
+.steps span { color: var(--ink-soft); font-size: .96rem; }
+.tipbox { background: var(--paper); border-radius: 12px; padding: 16px 18px; font-size: .96rem; }
+.contact { display: flex; flex-wrap: wrap; gap: 10px; }
+.contact a { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; padding: 9px 16px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); }
+.contact a:hover { border-color: var(--ink); }
+.contact svg { width: 17px; height: 17px; }
+
+/* ---------- vragenlijst (Greene) ---------- */
+.gcs { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, 1fr); gap: 28px; align-items: start; }
+.gcs-form { background: var(--paper); border-radius: 16px; padding: 8px 4px; min-width: 0; }
+.gcs-head, .gcs-row { display: grid; grid-template-columns: 2.1em minmax(0, 1fr) repeat(4, 64px); align-items: center; gap: 4px; padding: 7px 14px; }
+.gcs-head { font-size: .74rem; hyphens: manual; color: var(--ink-soft); text-align: center; line-height: 1.15; position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--navh, 64px)); background: var(--paper); z-index: 2; border-bottom: 1px solid var(--line); padding-block: 12px; border-radius: 16px 16px 0 0; }
+.gcs-head span:nth-child(2) { text-align: left; }
+.gcs-row + .gcs-row { border-top: 1px solid var(--line); }
+.gcs-row .n { font-variant-numeric: tabular-nums; color: var(--ink-soft); font-size: .85rem; }
+.gcs-row .q { font-size: .97rem; line-height: 1.3; }
+.gcs-row label { display: grid; place-items: center; height: 40px; cursor: pointer; border-radius: 8px; }
+.gcs-row label:hover { background: var(--band); }
+.gcs-row input { appearance: none; -webkit-appearance: none; width: 22px; height: 22px; border: 1.6px solid var(--ink); border-radius: 50%; margin: 0; cursor: pointer; display: grid; place-items: center; }
+.gcs-row input:checked { border-color: var(--accent); background: radial-gradient(circle, var(--accent) 0 5px, transparent 6px); }
+.gcs-row input:focus-visible { outline: 3px solid var(--pink); outline-offset: 2px; }
+.gcs-sec { padding: 14px 14px 4px; font-weight: 600; font-size: .85rem; color: var(--accent-ink); }
+.gcs-out { position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--navh, 64px) + 16px); background: var(--ink); color: #fff; border-radius: 16px; padding: 22px; display: grid; gap: 16px; }
+.gcs-out h3 { font-size: 1.3rem; }
+.gcs-out .sub { font-size: .9rem; color: #e8dfdc; }
+.bar { display: grid; gap: 6px; }
+.bar-top { display: flex; justify-content: space-between; gap: 10px; font-size: .92rem; }
+.bar-top b { font-variant-numeric: tabular-nums; }
+.bar-track { height: 8px; border-radius: 4px; background: rgba(255,255,255,.18); overflow: hidden; }
+.bar-fill { height: 100%; width: 0; background: var(--accent); border-radius: 4px; transition: width .35s ease; }
+.gcs-total { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid rgba(255,255,255,.25); padding-top: 12px; }
+.gcs-total b { font-family: var(--f-display); font-size: 2rem; font-variant-numeric: tabular-nums; }
+.gcs-out .btn { background: transparent; color: #fff; border-color: rgba(255,255,255,.6); justify-self: start; }
+.gcs-out .btn:hover { background: #fff; color: var(--ink); }
+.gcs-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.gcs-out .btn.solid { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+.gcs-out .btn.solid:hover { background: #fff; border-color: #fff; }
+.gcs-msg { font-size: .85rem; color: #e8dfdc; }
+.gcs-note { font-size: .9rem; color: var(--ink-soft); margin-top: 16px; max-width: 60em; }
+
+/* ---------- downloads ---------- */
+.dl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.dl { display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: center; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
+.dl img { width: 64px; height: 80px; object-fit: contain; }
+.dl > div { min-width: 0; display: grid; gap: 6px; justify-items: start; }
+.dl h3 { font-size: 1.1rem; }
+.dl small { color: var(--ink-soft); }
+.note { margin-top: 16px; font-size: .92rem; color: var(--ink-soft); }
+.dl-msg { font-size: .85rem; color: var(--accent-ink); }
+
+/* ---------- dialog ---------- */
+dialog { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100dvh; width: 100vw; height: 100dvh; margin: 0; }
+dialog::backdrop { background: rgba(40,33,32,.86); }
+.dlg { background: rgba(40,33,32,.9); height: 100%; display: grid; grid-template-rows: auto 1fr auto; gap: 12px; padding-block: max(12px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-bottom, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); color: #fff; }
+.dlg-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.dlg-top strong { font-family: var(--f-display); font-size: 1.2rem; }
+.dlg .iconbtn { background: rgba(255,255,255,.08); color: #fff; border-color: rgba(255,255,255,.5); }
+.dlg .iconbtn:hover:not(:disabled) { background: #fff; color: var(--ink); }
+.dlg-body { min-height: 0; display: grid; place-items: center; overflow: auto; }
+.dlg-bottom { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; }
+.dlg .btn { background: #fff; border-color: #fff; color: var(--ink); }
+.big-blade { height: min(78dvh, 820px); aspect-ratio: 600 / 1676; max-width: 100%; perspective: 1800px; border: 0; padding: 0; background: none; cursor: pointer; }
+.big-blade .card { display: block; position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.3,.7,.2,1); }
+.big-blade.flipped .card { transform: rotateY(180deg); }
+.big-blade .face img { filter: none; }
+.zoom { overflow: auto; width: 100%; height: 100%; display: block; }
+.zoom img { width: max(100%, 1700px); max-width: none; display: block; margin: auto; }
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; width: min(100%, 1300px); align-items: center; }
+.duo figure { margin: 0; display: grid; gap: 8px; justify-items: center; min-width: 0; }
+.duo img { width: 100%; max-height: calc(100dvh - 150px); object-fit: contain; border-radius: 4px; }
+.duo figcaption { font-size: .9rem; color: #e8dfdc; }
+
+/* footer */
+footer { padding-block: 44px 60px; font-size: .9rem; color: var(--ink-soft); display: grid; gap: 12px; }
+footer strong { color: var(--ink); }
+.srcs { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+.srcs a { text-underline-offset: 2px; }
+
+@media (max-width: 760px) {
+  .gcs { grid-template-columns: 1fr; }
+  .gcs-out { position: static; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .top { gap: 10px; padding-block: 10px; }
+  .top img { height: 22px; }
+  .top nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; justify-content: flex-start; min-width: 0; }
+  .top nav::-webkit-scrollbar { display: none; }
+  .top nav a { white-space: nowrap; font-size: .85rem; padding: 6px 10px; }
+  .band { padding-block: 40px 44px; }
+  .range input { width: 120px; }
+  .gcs-head, .gcs-row { grid-template-columns: minmax(0, 1fr) repeat(4, 50px); padding-inline: 10px; gap: 2px; }
+  .gcs-head { font-size: .66rem; letter-spacing: -.01em; }
+  .gcs-head span:nth-child(2) { font-size: .78rem; }
+  .gcs-row .n, .gcs-head span:first-child { display: none; }
+  .duo { grid-template-columns: 1fr; }
+  .duo img { max-height: none; }
+  .dlg-body { place-items: start center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* blad-overzicht in het grote scherm */
+.bv { display: flex; align-items: center; gap: 32px; }
+.bstrip { display: grid; grid-template-columns: repeat(2, 44px); gap: 8px; }
+.bstrip button { border: 2px solid transparent; padding: 0; background: none; border-radius: 5px; cursor: pointer; opacity: .55; }
+.bstrip button[aria-current="true"] { border-color: #fff; opacity: 1; }
+.bstrip button:hover { opacity: .9; }
+.bstrip img { width: 100%; display: block; border-radius: 3px; }
+@media (max-width: 760px) { .bstrip { display: none; } }
+
+/* Greene-uitleg voor huisartsen */
+.gcs-use { background: var(--paper); border-radius: 16px; padding: 22px 24px; display: grid; gap: 16px; margin-bottom: 20px; }
+.gcs-use h3, .gsub h3 { font-size: 1.15rem; }
+.subs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 700px) { .subs { grid-template-columns: 1fr; } }
+.gsub { background: var(--paper); border-radius: 16px; padding: 20px 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.gsub header { display: flex; gap: 12px; align-items: center; }
+.gsub header > b { width: 38px; height: 38px; border-radius: 10px; background: var(--pink); color: #fff; display: grid; place-items: center; font-family: var(--f-display); font-size: 1.2rem; flex: none; }
+.gsub small { display: block; white-space: nowrap; font-size: .85rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.gsub p { font-size: 1rem; max-width: 34em; }
+.gsub .tip { color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 10px; }
+.gsub a, .gcs-use a, .gcs-note a { text-underline-offset: 2px; }
+.flip-hint { text-align: center; color: var(--ink-soft); font-size: .95rem; margin-bottom: 14px; }
+.lead, .gsub p, .gcs-note, .steps span { text-wrap: pretty; }
+
+/* subtiele wissel: andere doelgroep en taal */
+.switch { display: flex; align-items: center; gap: 2px; flex: none; margin-left: 4px; padding-left: 10px; border-left: 1px solid var(--line); }
+.switch a { text-decoration: none; font-size: .8rem; color: var(--ink-soft); padding: 5px 8px; border-radius: 999px; white-space: nowrap; }
+.switch a:hover { color: var(--ink); background: var(--band); }
+.switch a[hreflang] { font-weight: 600; letter-spacing: .04em; }
+.top nav { margin-left: auto; }
+@media (max-width: 560px) { .switch { padding-left: 6px; margin-left: 0; } .switch a { padding: 5px 6px; font-size: .76rem; } }
+.nl-note { font-size: .9rem; color: var(--ink-soft); background: var(--band); border-radius: 10px; padding: 8px 14px; justify-self: start; }
+
+:root { --accent: var(--orange); --accent-ink: #9a5200; --band: var(--tint-orange); }
+</style>
+</head>
+<body>
+
+
+<header class="topbar"><div class="wrap top"><img src="img/ksyos-logo.png" alt="Ksyos"><nav aria-label="On this page"><a href="#waaier">Fan</a><a href="#kaart">Preparing your appointment</a><a href="#vragenlijst">Questionnaire</a><a href="#printen">Print</a></nav><div class="switch"><a href="gps.html">For GPs</a><a href="patienten.html" hreflang="nl" title="Nederlandse versie">NL</a></div></div></header>
+<section class="wrap hero">
+  <span class="eyebrow">Information about the menopause transition</span>
+  <h1>Is this the <span class="hl">menopause?</span></h1>
+  <p class="lead">From around the age of 40, your hormones can start to fluctuate. This can cause many different symptoms, even while you still have regular periods.</p>
+  <p class="lead">It can be hard to know where to start, or what to discuss with your GP. That is why we made a few clear tools: a fan, a card to prepare your appointment and a questionnaire. Read up in advance, or print them.</p>
+  <p class="nl-note">The fan, the card and the printable files are currently available in Dutch only.</p>
+</section>
+
+<section class="band" id="waaier" aria-labelledby="h-fan">
+  <div class="wrap">
+    <div class="band-head"><span class="kicker">The fan</span><h2 id="h-fan">Recognise hormonal symptoms</h2>
+      <p>Each blade covers a different part of your body. Tap a blade to see it large. Curious what you can do yourself? Turn the fan over for tips.</p></div>
+    <div class="fan-3d"><div class="fan-stage" id="fan" aria-label="Fan with 10 blades"></div></div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Side of the fan"><button type="button" data-side="front" aria-pressed="true">Recognise</button><button type="button" data-side="back" aria-pressed="false">Act</button></div>
+      <label class="range" for="fan-open">Closed<input type="range" id="fan-open" min="0" max="10" step="0.5" value="9">Open</label>
+    </div>
+  </div>
+  <script type="application/json" id="fan-data">{"front": [{"img": "img/wb-voor-01.webp", "name": "Is this the menopause transition?", "alt": "Fan blade Is this the menopause transition?, front: recognisable symptoms (in Dutch)"}, {"img": "img/wb-voor-02.webp", "name": "Heat", "alt": "Fan blade Heat, front: recognisable symptoms (in Dutch)"}, {"img": "img/wb-voor-03.webp", "name": "Cycle", "alt": "Fan blade Cycle, front: recognisable symptoms (in Dutch)"}, {"img": "img/wb-voor-04.webp", "name": "Sleep & Energy", "alt": "Fan blade Sleep & Energy, front: recognisable symptoms (in Dutch)"}, {"img": "img/wb-voor-05.webp", "name": "Mood", "alt": "Fan blade Mood, front: recognisable symptoms (in Dutch)"}, {"img": "img/wb-voor-06.webp", "name": "Head", "alt": "Fan blade Head, front: recognisable symptoms (in Dutch)"}, {"img": "img/wb-voor-07.webp", "name": "Body", "alt": "Fan blade Body, front: recognisable symptoms (in Dutch)"}, {"img": "img/wb-voor-08.webp", "name": "Intimate", "alt": "Fan blade Intimate, front: recognisable symptoms (in Dutch)"}, {"img": "img/wb-voor-09.webp", "name": "Skin & Hair", "alt": "Fan blade Skin & Hair, front: recognisable symptoms (in Dutch)"}, {"img": "img/wb-voor-10.webp", "name": "When is the menopause transition?", "alt": "Fan blade When is the menopause transition?, front: recognisable symptoms (in Dutch)"}], "back": [{"img": "img/wb-achter-01.webp", "name": "Tell your GP", "alt": "Fan blade Tell your GP, back: tips (in Dutch)"}, {"img": "img/wb-achter-02.webp", "name": "Heat: what helps", "alt": "Fan blade Heat: what helps, back: tips (in Dutch)"}, {"img": "img/wb-achter-03.webp", "name": "Cycle: what helps", "alt": "Fan blade Cycle: what helps, back: tips (in Dutch)"}, {"img": "img/wb-achter-04.webp", "name": "Sleep & Energy: what helps", "alt": "Fan blade Sleep & Energy: what helps, back: tips (in Dutch)"}, {"img": "img/wb-achter-05.webp", "name": "Mood: what helps", "alt": "Fan blade Mood: what helps, back: tips (in Dutch)"}, {"img": "img/wb-achter-06.webp", "name": "Head: what helps", "alt": "Fan blade Head: what helps, back: tips (in Dutch)"}, {"img": "img/wb-achter-07.webp", "name": "Body: what helps", "alt": "Fan blade Body: what helps, back: tips (in Dutch)"}, {"img": "img/wb-achter-08.webp", "name": "Intimate: what helps", "alt": "Fan blade Intimate: what helps, back: tips (in Dutch)"}, {"img": "img/wb-achter-09.webp", "name": "Skin & Hair: what helps", "alt": "Fan blade Skin & Hair: what helps, back: tips (in Dutch)"}, {"img": "img/wb-achter-10.webp", "name": "What can I do myself?", "alt": "Fan blade What can I do myself?, back: tips (in Dutch)"}]}</script>
+</section>
+
+<section class="band plain" id="kaart" aria-labelledby="h-card">
+  <div class="wrap">
+    <div class="band-head"><span class="kicker">Preparing your appointment</span><h2 id="h-card">What do I discuss with my GP?</h2>
+      <p>Want to be well prepared? Leaf through the card and tick what you notice, what it does to you and what you want to ask. Write it down, so you don’t forget anything and keep an overview during the conversation.</p></div>
+    <div class="book" id="book" tabindex="-1">
+      <span class="pagelabel" id="book-label" aria-live="polite"></span>
+      <div class="spreads"><div class="view" data-label="Front"><div class="single cover"><img src="img/pk-1.webp" alt="Front: Recognise the perimenopause (in Dutch)"></div></div><div class="view" data-label="Inside (unfolded)"><div class="spread"><div class="half l"><img src="img/pk-2.webp" alt="Inside left: recognising symptoms (in Dutch)"></div><div class="half r"><img src="img/pk-3.webp" alt="Inside right: what does it do to you? Tell your GP. (in Dutch)"></div></div></div><div class="view" data-label="Back"><div class="single backc"><img src="img/pk-4.webp" alt="Back: what can I do? (in Dutch)"></div></div></div>
+      <div class="pager"><button type="button" class="iconbtn" id="book-prev" aria-label="Previous page"></button><span class="count" id="book-count"></span><button type="button" class="iconbtn" id="book-next" aria-label="Next page"></button></div>
+      <div class="thumbs"><button type="button" aria-label="Front"><img src="img/pk-1.webp" alt=""></button><button type="button" class="dbl" aria-label="Inside"><img src="img/pk-2.webp" alt=""><img src="img/pk-3.webp" alt=""></button><button type="button" aria-label="Back"><img src="img/pk-4.webp" alt=""></button></div>
+      <button type="button" class="btn" id="book-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg><span> View large</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="vragenlijst" aria-labelledby="h-gcs">
+  <div class="wrap">
+    <div class="band-head"><span class="kicker">Questionnaire</span><h2 id="h-gcs">Greene Climacteric Scale</h2>
+      <p>This questionnaire is used worldwide to measure menopausal symptoms. It helps you see which symptoms you have and how much they bother you. For each symptom, indicate how much it bothers you at the moment. Done? Make a PDF and take it to your GP.</p></div>
+    <div class="gcs" id="gcs">
+  <div class="gcs-form"><div class="gcs-head" aria-hidden="true"><span>#</span><span>Symptoms</span><span>Not at all</span><span>A little</span><span>Quite a bit</span><span>Extremely</span></div></div>
+  <aside class="gcs-out" aria-live="polite"><h3>Score</h3><p class="sub">Score per symptom 0–3. Your answers are not stored or sent anywhere.</p><div class="gcs-bars"></div>
+    <div class="gcs-total"><span>Total (0–63)</span><b>0</b></div><p class="sub gcs-count"></p>
+    <div class="gcs-actions"><button type="button" class="btn solid" id="gcs-pdf">Make PDF</button><button type="button" class="btn" id="gcs-reset">Clear answers</button></div><p class="gcs-msg" hidden></p></aside>
+</div>
+<p class="gcs-note">Greene Climacteric Scale (Greene, 1998), original English wording.</p>
+<script type="application/json" id="gcs-data">{"items": ["Heart beating quickly or strongly", "Feeling tense or nervous", "Difficulty in sleeping", "Excitable", "Attacks of panic", "Difficulty in concentrating", "Feeling tired or lacking in energy", "Loss of interest in most things", "Feeling unhappy or depressed", "Crying spells", "Irritability", "Feeling dizzy or faint", "Pressure or tightness in head or body", "Parts of body feel numb or tingling", "Headaches", "Muscle and joint pains", "Loss of feeling in hands or feet", "Breathing difficulties", "Hot flushes", "Sweating at night", "Loss of interest in sex"], "scale": ["Not at all", "A little", "Quite a bit", "Extremely"], "groups": [{"title": "", "items": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]}], "scores": [{"label": "Psychological P (1–11)", "items": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}, {"label": "Anxiety A (1–6)", "items": [1, 2, 3, 4, 5, 6]}, {"label": "Depression D (7–11)", "items": [7, 8, 9, 10, 11]}, {"label": "Somatic S (12–18)", "items": [12, 13, 14, 15, 16, 17, 18]}, {"label": "Vasomotor V (19–20)", "items": [19, 20]}, {"label": "Sexual (21)", "items": [21]}]}</script>
+  </div>
+</section>
+
+<section class="band plain" id="printen" aria-labelledby="h-print">
+  <div class="wrap">
+    <div class="band-head"><span class="kicker">Print</span><h2 id="h-print">Print the fan, the card or the questionnaire</h2>
+      <p>Useful to fill in and take to your GP. The fan and the card are in Dutch; the questionnaire is in English.</p></div>
+    <div class="dl-grid">
+      <div class="dl"><img src="img/wb-voor-01.webp" alt="" loading="lazy"><div><h3>Fan (Dutch)</h3><small>2 sheets A4, double-sided · PDF, 0.6 MB</small>
+<a class="btn solid" href="pdf/Waaier_overgang_patient_Ksyos.pdf" download="Fan_menopause_Ksyos_NL.pdf" data-dl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Download</span></a><span class="dl-msg" hidden></span></div></div>
+      <div class="dl"><img src="img/pk-1.webp" alt="" loading="lazy"><div><h3>Appointment card (Dutch)</h3><small>A4, double-sided, fold to A5 · PDF, 0.4 MB</small>
+<a class="btn solid" href="pdf/Patientkaart_overgang_Ksyos.pdf" download="Appointment_card_menopause_Ksyos_NL.pdf" data-dl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Download</span></a><span class="dl-msg" hidden></span></div></div>
+      <div class="dl"><img src="img/gcs-thumb-en.webp" alt="" loading="lazy"><div><h3>Greene Climacteric Scale</h3><small>Questionnaire, A4, 1 page · PDF, 0.2 MB</small>
+<a class="btn solid" href="pdf/Greene_Climacteric_Scale_Ksyos_EN.pdf" download="Greene_Climacteric_Scale_Ksyos.pdf" data-dl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Download</span></a><span class="dl-msg" hidden></span></div></div>
+    </div>
+    <p class="note">Tip: print in colour. Each sheet of the fan explains how to put it together.</p>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p><strong>Need more help?</strong> Discuss your symptoms with your GP. More about the Ksyos Menopause care pathway: <a href="https://www.ksyos.nl/menopauze" target="_blank" rel="noopener">ksyos.nl/menopauze</a></p>
+  <p>This information does not replace a conversation with your GP.</p>
+  <p><strong>Based on:</strong></p>
+  <ul class="srcs">
+<li><a href="https://richtlijnen.nhg.org/standaarden/de-overgang" target="_blank" rel="noopener">NHG guideline Menopause (Dutch College of General Practitioners, M73, 2024)</a></li>
+<li><a href="https://www.nice.org.uk/guidance/ng23" target="_blank" rel="noopener">NICE guideline Menopause: identification and management (NG23, 2024)</a></li>
+<li><a href="https://richtlijnendatabase.nl/richtlijn/management_rondom_menopauze/startpagina_-_management_rondom_menopauze.html" target="_blank" rel="noopener">NVOG guideline Management around menopause (Dutch Society of Obstetrics and Gynaecology, 2025)</a></li>
+<li><a href="https://www.sciencedirect.com/science/article/pii/S0378512208002284" target="_blank" rel="noopener">Greene JG. Constructing a standard climacteric scale. Maturitas 1998;29:25–31 (reprinted in Maturitas 2008;61:78–83)</a>, see also the <a href="#vragenlijst">questionnaire on this page</a></li>
+</ul>
+</footer>
+
+<dialog id="dlg" aria-labelledby="dlg-title"><div class="dlg"><div class="dlg-top"><strong id="dlg-title"></strong><button type="button" class="iconbtn" id="dlg-close" aria-label="Close"></button></div><div class="dlg-body" id="dlg-body"></div><div class="dlg-bottom" id="dlg-bottom"></div></div></dialog>
+<script type="application/json" id="i18n">{"Vorig blad": "Previous blade", "Volgend blad": "Next blade", " Bekijk voorkant": " Show front", " Draai om": " Turn over", "Alle bladen": "All blades", " Bekijk achterkant": " Show back", "Downloaden lukt niet in deze weergave. Open de pagina in een browser.": "Downloading does not work in this view. Open the page in a browser.", "Bestand wordt klaargezet…": "Preparing the file…", "Even geduld en probeer het zo nog eens.": "Please wait a moment and try again.", "De pdf kan nu niet gemaakt worden. Probeer het later opnieuw.": "The PDF cannot be made right now. Please try again later.", "Ingevuld op ": "Completed on ", "Greene JG. Constructing a standard climacteric scale. Maturitas 1998;29:25-31; herdruk Maturitas 2008;61:78-83. Ingevuld via Ksyos.": "Greene JG. Constructing a standard climacteric scale. Maturitas 1998;29:25-31; reprinted in Maturitas 2008;61:78-83. Completed via Ksyos.", "Pdf wordt klaargezet…": "Preparing the PDF…", "Opslaan lukt niet in deze weergave. Open de pagina in een browser.": "Saving does not work in this view. Open the page in a browser.", "Blad ": "Blade ", ". Tik om groot te bekijken.": ". Tap to view it large.", ". Tik om om te draaien.": ". Tap to turn it over.", "Voorkant": "Front", "Achterkant": "Back", "Kaart": "Card", " van 21 ingevuld": " of 21 answered", " van 21 vragen)": " of 21 questions)", "Klachten": "Symptoms", "Scores": "Scores", "Totaal (0-63)": "Total (0-63)"}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var TT = {}; try { TT = JSON.parse(document.getElementById('i18n').textContent); } catch (e) {}
+  var tr = function (nl) { return TT[nl] || nl; };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var ARROW_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>';
+  var ARROW_R = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
+  var CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  var TURN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg>';
+
+  /* ---------- dialog ---------- */
+  var dlg = $('#dlg');
+  function openDialog(title, bodyEl, bottomEls, onKey) {
+    $('#dlg-title').textContent = title;
+    var body = $('#dlg-body'); body.innerHTML = ''; body.appendChild(bodyEl);
+    var bottom = $('#dlg-bottom'); bottom.innerHTML = '';
+    (bottomEls || []).forEach(function (e) { bottom.appendChild(e); });
+    dlg._onKey = onKey || null;
+    if (!dlg.open) { try { dlg.showModal(); } catch (e) { dlg.setAttribute('open', ''); } }
+  }
+  if (dlg) {
+    $('#dlg-close').innerHTML = CLOSE;
+    $('#dlg-close').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg || e.target.id === 'dlg-body') dlg.close(); });
+    dlg.addEventListener('keydown', function (e) { if (dlg._onKey) dlg._onKey(e); });
+  }
+  function mkBtn(cls, html, label, fn) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = cls; b.innerHTML = html;
+    if (label) b.setAttribute('aria-label', label);
+    b.addEventListener('click', fn); return b;
+  }
+  function swipe(el, left, right) {
+    var x0 = null, y0 = null;
+    el.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+    el.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) { (dx < 0 ? left : right)(); }
+      x0 = null;
+    }, { passive: true });
+  }
+  function onVisible(el, fn, th) {
+    var done = false; function go() { if (!done) { done = true; fn(); } }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { go(); io.disconnect(); } }, { threshold: th || 0.35 });
+      io.observe(el);
+    }
+    setTimeout(go, 2600);
+  }
+
+  /* ---------- boekschroef (Chicago screw), 9 mm kop ---------- */
+  var SCREW_HEAD = '<svg viewBox="-50 -50 100 100" aria-hidden="true"><defs>' +
+    '<radialGradient id="sh" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#fffdf4"/><stop offset=".28" stop-color="#e9e1c8"/><stop offset=".62" stop-color="#b8a777"/><stop offset=".9" stop-color="#7d6c42"/><stop offset="1" stop-color="#5d5032"/></radialGradient>' +
+    '<linearGradient id="sl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a311d"/><stop offset=".55" stop-color="#6b5a33"/><stop offset="1" stop-color="#d8cba3"/></linearGradient></defs>' +
+    '<ellipse cx="3" cy="6" rx="48" ry="47" fill="rgba(40,30,20,.28)"/>' +
+    '<circle r="48" fill="url(#sh)" stroke="#6e5f3a" stroke-width="1.2"/>' +
+    '<circle r="40" fill="none" stroke="rgba(255,255,240,.35)" stroke-width="2"/>' +
+    '<g transform="rotate(-28)"><rect x="-34" y="-5" width="68" height="10" rx="4" fill="url(#sl)"/><rect x="-33" y="3.2" width="66" height="1.6" rx=".8" fill="rgba(255,250,225,.55)"/></g>' +
+    '<ellipse cx="-16" cy="-20" rx="14" ry="8" transform="rotate(-35 -16 -20)" fill="rgba(255,255,255,.55)"/></svg>';
+  var SCREW_POST = '<svg viewBox="-50 -50 100 100" aria-hidden="true"><defs>' +
+    '<radialGradient id="sp" cx="40%" cy="35%" r="75%"><stop offset="0" stop-color="#fffdf4"/><stop offset=".35" stop-color="#e2d8bb"/><stop offset=".75" stop-color="#a8966a"/><stop offset="1" stop-color="#5d5032"/></radialGradient></defs>' +
+    '<ellipse cx="3" cy="6" rx="48" ry="47" fill="rgba(40,30,20,.28)"/><circle r="48" fill="url(#sp)" stroke="#6e5f3a" stroke-width="1.2"/>' +
+    '<circle r="30" fill="none" stroke="rgba(90,75,45,.35)" stroke-width="1.5"/><ellipse cx="-15" cy="-19" rx="13" ry="7" transform="rotate(-35 -15 -19)" fill="rgba(255,255,255,.5)"/></svg>';
+
+  /* ---------- waaier met losse bladen (Waaier B) ---------- */
+  var fan = $('#fan');
+  if (fan) {
+    var data = JSON.parse($('#fan-data').textContent);
+    var N = data.front.length;
+    var BW_MM = 59, BH_MM = 165, HOLE_MM = 8.5, SCREW_MM = 9;
+    var PX = 1 - HOLE_MM / BW_MM, PY = 1 - HOLE_MM / BH_MM, AR = BW_MM / BH_MM;
+    var step = 0, side = 'front', blades = [], OPEN = 9, geo = null;
+    data.front.forEach(function (f, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'blade';
+      b.innerHTML = '<span class="card"><span class="face front"><img alt="" draggable="false"></span><span class="face back"><img alt="" draggable="false"></span></span>';
+      $('.front img', b).src = f.img; $('.back img', b).src = data.back[i].img;
+      b.style.transitionDelay = (i * 45) + 'ms';
+      b.addEventListener('click', function (e) { if (e.detail === 0) openBlade(i); });   // toetsenbord; muis/touch via hitTest
+      fan.appendChild(b); blades.push(b);
+    });
+    var head = document.createElement('span'); head.className = 'screw'; head.innerHTML = SCREW_HEAD;
+    var post = document.createElement('span'); post.className = 'screw'; post.innerHTML = SCREW_POST;
+    fan.appendChild(head); fan.appendChild(post);
+    function labelBlades() {
+      blades.forEach(function (b, i) {
+        var d = side === 'front' ? data.front[i] : data.back[i];
+        b.setAttribute('aria-label', tr('Blad ') + (i + 1) + ': ' + d.name + tr('. Tik om groot te bekijken.'));
+      });
+    }
+    function bbox(st) {
+      var w = AR, pts = [[-PX * w, -PY], [(1 - PX) * w, -PY], [-PX * w, 1 - PY], [(1 - PX) * w, 1 - PY]];
+      var b = { x0: 0, x1: 0, y0: 0, y1: 0 };
+      for (var i = 0; i < N; i++) {
+        var t = -i * st * Math.PI / 180, c = Math.cos(t), s = Math.sin(t);
+        pts.forEach(function (p) {
+          var x = p[0] * c - p[1] * s, y = p[0] * s + p[1] * c;
+          b.x0 = Math.min(b.x0, x); b.x1 = Math.max(b.x1, x); b.y0 = Math.min(b.y0, y); b.y1 = Math.max(b.y1, y);
+        });
+      }
+      return b;
+    }
+    function layout() {
+      var W = fan.parentElement.clientWidth;
+      // altijd maatvoeren op de open waaier, ook gespiegeld past hij zo in hetzelfde vak
+      var bo = bbox(OPEN), bc = bbox(step);
+      var x0 = Math.min(bo.x0, bc.x0), x1 = Math.max(bo.x1, bc.x1), y0 = Math.min(bo.y0, bc.y0), y1 = Math.max(bo.y1, bc.y1);
+      // spiegelen gebeurt rond het midden van dit vak, dus de achterkant past in hetzelfde vak
+      var H = Math.min(640, W / (x1 - x0), (window.innerHeight * 0.8) / (y1 - y0));
+      fan.style.width = ((x1 - x0) * H) + 'px';
+      fan.style.height = ((y1 - y0) * H) + 'px';
+      var px = -x0 * H, py = -y0 * H, bw = AR * H;
+      geo = { bw: bw, H: H };
+      fan.style.transformOrigin = px + 'px ' + py + 'px';
+      orient();
+      blades.forEach(function (b, i) {
+        b.style.width = bw + 'px'; b.style.height = H + 'px';
+        b.style.left = (px - PX * bw) + 'px'; b.style.top = (py - PY * H) + 'px';
+        b.style.transformOrigin = (PX * 100) + '% ' + (PY * 100) + '%';
+        b.style.transform = 'rotate(' + (-i * step) + 'deg) translateZ(' + (-i * 0.8) + 'px)';
+      });
+      var d = SCREW_MM / BW_MM * bw;
+      [head, post].forEach(function (s) { s.style.width = s.style.height = d + 'px'; s.style.left = (px - d / 2) + 'px'; s.style.top = (py - d / 2) + 'px'; });
+      head.style.transform = 'translateZ(3px)';
+      post.style.transform = 'translateZ(' + (-(N - 1) * 0.8 - 3) + 'px) rotateY(180deg)';
+    }
+    // achterkant: spiegelen rond het draaipunt en zo draaien dat het bovenste blad rechtop staat
+    function orient() {
+      fan.style.transform = side === 'back' ? 'rotateY(180deg) rotate(' + ((N - 1) * step) + 'deg)' : 'rotateY(0deg) rotate(0deg)';
+    }
+    function hitTest(cx, cy) {
+      var hr = head.getBoundingClientRect(), dx = cx - (hr.left + hr.width / 2), dy = cy - (hr.top + hr.height / 2);
+      if (side === 'back') dx = -dx;
+      var order = []; for (var k = 0; k < N; k++) order.push(side === 'back' ? N - 1 - k : k);
+      for (var j = 0; j < N; j++) {
+        var i = order[j], a = (i * step - (side === 'back' ? (N - 1) * step : 0)) * Math.PI / 180;
+        var x = dx * Math.cos(a) - dy * Math.sin(a), y = dx * Math.sin(a) + dy * Math.cos(a);
+        if (x >= -PX * geo.bw && x <= (1 - PX) * geo.bw && y >= -PY * geo.H && y <= (1 - PY) * geo.H) return i;
+      }
+      return -1;
+    }
+    fan.addEventListener('click', function (e) {
+      if (e.detail === 0 || !geo) return;
+      var i = hitTest(e.clientX, e.clientY); if (i >= 0) openBlade(i);
+    });
+    function setStep(v) { step = v; layout(); var r = $('#fan-open'); if (r) r.value = String(v); }
+    function setSide(s) {
+      side = s;
+      fan.classList.toggle('back', s === 'back'); orient();
+      $$('[data-side]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-side') === s)); });
+      labelBlades();
+    }
+    $$('[data-side]').forEach(function (x) { x.addEventListener('click', function () { setSide(x.getAttribute('data-side')); }); });
+    var rng = $('#fan-open');
+    if (rng) rng.addEventListener('input', function () { blades.forEach(function (b) { b.style.transitionDelay = '0ms'; }); setStep(parseFloat(rng.value)); });
+    window.addEventListener('resize', layout);
+    labelBlades(); setStep(0);
+    onVisible(fan, function () { setTimeout(function () { setStep(OPEN); }, reduce ? 0 : 250); });
+
+    function openBlade(i) {
+      var cur = i, flipped = side === 'back';
+      var big = document.createElement('button'); big.type = 'button'; big.className = 'big-blade';
+      big.innerHTML = '<span class="card"><span class="face front"><img alt=""></span><span class="face back"><img alt=""></span></span>';
+      var prev = mkBtn('iconbtn', ARROW_L, tr('Vorig blad'), function () { if (cur > 0) { cur--; show(); } });
+      var next = mkBtn('iconbtn', ARROW_R, tr('Volgend blad'), function () { if (cur < N - 1) { cur++; show(); } });
+      var turn = mkBtn('btn', TURN + '<span>' + tr(' Draai om') + '</span>', null, function () { flipped = !flipped; show(); });
+      var count = document.createElement('span'); count.style.minWidth = '4em'; count.style.textAlign = 'center';
+      function show() {
+        $('.front img', big).src = data.front[cur].img; $('.front img', big).alt = data.front[cur].alt;
+        $('.back img', big).src = data.back[cur].img; $('.back img', big).alt = data.back[cur].alt;
+        big.classList.toggle('flipped', flipped);
+        $('#dlg-title').textContent = flipped ? data.back[cur].name : data.front[cur].name;
+        count.textContent = (cur + 1) + ' / ' + N;
+        prev.disabled = cur === 0; next.disabled = cur === N - 1;
+        turn.lastChild.textContent = flipped ? tr(' Bekijk voorkant') : tr(' Draai om');
+        tb.forEach(function (x, k) { var d = flipped ? data.back[k] : data.front[k]; $('img', x).src = d.img; x.setAttribute('aria-label', d.name); x.setAttribute('aria-current', String(k === cur)); });
+      }
+      var wrapv = document.createElement('div'); wrapv.className = 'bv';
+      var strip = document.createElement('div'); strip.className = 'bstrip'; strip.setAttribute('aria-label', tr('Alle bladen'));
+      var tb = [];
+      for (var t = 0; t < N; t++) (function (t) {
+        var x = document.createElement('button'); x.type = 'button'; x.innerHTML = '<img alt="">';
+        x.addEventListener('click', function (ev) { ev.stopPropagation(); cur = t; show(); });
+        strip.appendChild(x); tb.push(x);
+      })(t);
+      wrapv.appendChild(big); wrapv.appendChild(strip);
+      big.addEventListener('click', function () { flipped = !flipped; show(); });
+      swipe(big, function () { next.click(); }, function () { prev.click(); });
+      openDialog('', wrapv, [prev, count, turn, next], function (e) {
+        if (e.key === 'ArrowLeft') prev.click(); else if (e.key === 'ArrowRight') next.click();
+      });
+      show();
+    }
+  }
+
+  /* ---------- vouwwaaier met bamboe baleinen (Waaier A) ---------- */
+  var leaf = $('#leaf');
+  if (leaf) {
+    var cv = $('canvas', leaf), ctx = cv.getContext('2d');
+    var G = JSON.parse(leaf.getAttribute('data-geo'));   // cx, cy, r0, r1, span (graden vanaf verticaal)
+    var K = 22, HALF = 2 * K, SPAN = G.span * 2, h = SPAN / HALF;   // 22 plooien = 44 vlakken
+    var rad = function (d) { return d * Math.PI / 180; };
+    var k = G.r1 / 1016.8;
+    var WX0 = G.cx - G.r1 - 40 * k, WX1 = G.cx + G.r1 + 40 * k, WY0 = G.cy - G.r1 - 30 * k, WY1 = G.cy + 110 * k;
+    var p = 0, slices = [], ready = false;
+    var img = new Image();
+    img.onload = function () { buildSlices(); ready = true; size(); };
+    img.src = leaf.getAttribute('data-src');
+
+    function buildSlices() {
+      var sw = Math.ceil(2 * (G.r1 + 4) * Math.sin(rad(h / 2))) + 8, sh = Math.ceil(G.r1 + 6);
+      for (var j = 0; j < HALF; j++) {
+        var a = -G.span + (j + 0.5) * h;
+        var c = document.createElement('canvas'); c.width = sw; c.height = sh;
+        var x = c.getContext('2d');
+        x.translate(sw / 2, sh - 1); x.rotate(rad(-a)); x.translate(-G.cx, -G.cy);
+        x.beginPath();
+        x.arc(G.cx, G.cy, G.r1 + 4, rad(a - h / 2 - 90 - 0.08), rad(a + h / 2 - 90 + 0.08));
+        x.arc(G.cx, G.cy, G.r0 - 3, rad(a + h / 2 - 90 + 0.08), rad(a - h / 2 - 90 - 0.08), true);
+        x.closePath(); x.clip(); x.drawImage(img, 0, 0);
+        // schaduwvariant (zelfde vorm) voor de plooien
+        var d = document.createElement('canvas'); d.width = sw; d.height = sh;
+        var dx = d.getContext('2d'); dx.drawImage(c, 0, 0); dx.globalCompositeOperation = 'source-in';
+        dx.fillStyle = (j % 2) ? '#2b1d14' : '#fff7ea'; dx.fillRect(0, 0, sw, sh);
+        slices.push({ c: c, d: d, w: sw, h: sh });
+      }
+    }
+    var dpr = 1;
+    function size() {
+      var cssW = leaf.clientWidth;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = Math.round(cssW * dpr); cv.height = Math.round(cssW * (WY1 - WY0) / (WX1 - WX0) * dpr);
+      cv.style.aspectRatio = (WX1 - WX0) + ' / ' + (WY1 - WY0);
+      draw();
+    }
+    window.addEventListener('resize', size);
+
+    function stick(len, w0, w1, w2, tail, guard) {
+      // eenvoudig licht hout, zoals een gewone waaier: vlakke kleur, dun randje
+      var g = ctx.createLinearGradient(-w1 / 2, 0, w1 / 2, 0);
+      g.addColorStop(0, guard ? '#d9b98f' : '#e2c7a0'); g.addColorStop(0.5, guard ? '#e8cfaa' : '#efdcbf'); g.addColorStop(1, guard ? '#d2b084' : '#dcc097');
+      var r0 = G.r0;
+      ctx.beginPath();
+      ctx.moveTo(-w0 / 2, tail * 0.6);
+      ctx.quadraticCurveTo(0, tail * 1.15, w0 / 2, tail * 0.6);
+      ctx.lineTo(w0 / 2, 0);
+      ctx.lineTo(w1 / 2, -r0 * 0.95);
+      ctx.lineTo(w2 / 2, -len + w2 * 0.5);
+      ctx.quadraticCurveTo(0, -len - w2 * 0.1, -w2 / 2, -len + w2 * 0.5);
+      ctx.lineTo(-w1 / 2, -r0 * 0.95);
+      ctx.lineTo(-w0 / 2, 0);
+      ctx.closePath();
+      ctx.fillStyle = g; ctx.fill();
+      ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(120,85,45,.35)'; ctx.stroke();
+    }
+    function draw() {
+      if (!ready) return;
+      var s = cv.width / (WX1 - WX0);
+      ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
+      ctx.setTransform(s, 0, 0, s, -WX0 * s, -WY0 * s);
+      var q = Math.max(p, 0.0001), gap = 2 * h * q;
+      var tilt = Math.sqrt(Math.max(0, 1 - q * q));       // hoe schuin de vlakken staan
+      // 1. binnenbaleinen (achter het blad)
+      for (var i = K - 1; i >= 1; i--) {
+        ctx.save(); ctx.translate(G.cx, G.cy); ctx.rotate(rad(-G.span + i * gap));
+        stick(G.r1 * 0.9, 12 * k, 46 * k, 22 * k, 60 * k, false); ctx.restore();
+      }
+      // 2. het blad, vlak voor vlak
+      for (var j = 0; j < HALF; j++) {
+        var sl = slices[j], a = -G.span + (j + 0.5) * h * q;
+        ctx.save(); ctx.translate(G.cx, G.cy); ctx.rotate(rad(a)); ctx.scale(q, 1);
+        ctx.drawImage(sl.c, -sl.w / 2, -sl.h + 1);
+        var shade = (j % 2 ? 0.42 : 0.3) * tilt + (j % 2 ? 0.035 : 0.05);
+        ctx.globalAlpha = shade; ctx.drawImage(sl.d, -sl.w / 2, -sl.h + 1);
+        ctx.restore();
+      }
+      // 3. buitenbaleinen (op het blad)
+      [[0, -1], [K, 1]].forEach(function (gd) {
+        ctx.save(); ctx.translate(G.cx, G.cy); ctx.rotate(rad(-G.span + gd[0] * gap));
+        ctx.translate(gd[1] * 13 * k * Math.min(1, q * 6), 0);
+        ctx.shadowColor = 'rgba(60,35,15,.3)'; ctx.shadowBlur = 8; ctx.shadowOffsetY = 2;
+        stick(G.r1 + 4 * k, 16 * k, 40 * k, 26 * k, 70 * k, true); ctx.restore();
+      });
+      // 4. klinknagel
+      ctx.save(); ctx.translate(G.cx, G.cy);
+      var rg = ctx.createRadialGradient(-6 * k, -7 * k, 2 * k, 0, 0, 20 * k);
+      rg.addColorStop(0, '#fff6d8'); rg.addColorStop(0.45, '#d4b25e'); rg.addColorStop(1, '#7a5a1e');
+      ctx.beginPath(); ctx.arc(0, 0, 18 * k, 0, Math.PI * 2); ctx.fillStyle = rg; ctx.fill();
+      ctx.lineWidth = 1.5; ctx.strokeStyle = 'rgba(70,45,10,.6)'; ctx.stroke(); ctx.restore();
+    }
+    var lr = $('#leaf-open');
+    function setP(v) { p = Math.max(0, Math.min(1, v)); if (lr) lr.value = String(Math.round(p * 100)); draw(); }
+    var anim = null;
+    function animateTo(target, ms) {
+      if (anim) cancelAnimationFrame(anim);
+      if (reduce) { setP(target); return; }
+      var from = p, t0 = performance.now();
+      (function tick(now) {
+        var t = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - t, 3);
+        setP(from + (target - from) * e);        // eindigt precies op 'open', schiet niet door
+        if (t < 1) anim = requestAnimationFrame(tick); else anim = null;
+      })(t0);
+    }
+    setP(reduce ? 1 : 0);
+    onVisible(leaf, function () { var w = function () { ready ? animateTo(1, 1800) : setTimeout(w, 100); }; w(); }, 0.4);
+    if (lr) lr.addEventListener('input', function () { if (anim) cancelAnimationFrame(anim); setP(parseFloat(lr.value) / 100); });
+    var replay = $('#leaf-replay');
+    if (replay) replay.addEventListener('click', function () { setP(0); animateTo(1, 1800); });
+
+    // klikken vergroot (slepen is bewust weggelaten)
+    cv.addEventListener('click', function () { zoomLeaf(); });
+    function zoomLeaf() {
+      var z = document.createElement('div'); z.className = 'zoom';
+      var im = document.createElement('img'); im.src = leaf.getAttribute('data-src'); im.alt = cv.getAttribute('aria-label') || '';
+      z.appendChild(im);
+      openDialog(leaf.getAttribute('data-title') || 'Waaier', z, []);
+      setTimeout(function () { z.scrollLeft = (z.scrollWidth - z.clientWidth) / 2; }, 30);
+    }
+    leaf.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); zoomLeaf(); } });
+    var zb = $('#leaf-zoom'); if (zb) zb.addEventListener('click', zoomLeaf);
+  }
+
+  /* ---------- kaart om te draaien ---------- */
+  $$('.flip').forEach(function (f) {
+    var lab = f.getAttribute('data-labels').split('|');
+    var btn = $('#' + f.getAttribute('data-button'));
+    function upd() {
+      var on = f.classList.contains('flipped');
+      f.setAttribute('aria-label', (on ? lab[1] : lab[0]) + tr('. Tik om om te draaien.'));
+      if (btn) btn.lastChild.textContent = on ? tr(' Bekijk voorkant') : tr(' Bekijk achterkant');
+    }
+    function toggle() { f.classList.toggle('flipped'); upd(); }
+    f.addEventListener('click', toggle);
+    if (btn) btn.addEventListener('click', toggle);
+    upd();
+    var zb = $('#' + f.getAttribute('data-zoom'));
+    if (zb) zb.addEventListener('click', function () {
+      var duo = document.createElement('div'); duo.className = 'duo';
+      [['.front img', tr('Voorkant')], ['.back img', tr('Achterkant')]].forEach(function (x) {
+        var src = $(x[0], f), fig = document.createElement('figure'), im = document.createElement('img'), cap = document.createElement('figcaption');
+        im.src = src.src; im.alt = src.alt; cap.textContent = x[1];
+        fig.appendChild(im); fig.appendChild(cap); duo.appendChild(fig);
+      });
+      openDialog(f.getAttribute('data-title') || tr('Kaart'), duo, []);
+    });
+  });
+
+  /* ---------- kaart doorbladeren ---------- */
+  var book = $('#book');
+  if (book) {
+    var pages = $$('.view', book), thumbs = $$('.thumbs button', book), cur = 0;
+    var bp = $('#book-prev'), bn = $('#book-next'), cnt = $('#book-count'), lbl = $('#book-label');
+    bp.innerHTML = ARROW_L; bn.innerHTML = ARROW_R;
+    function go(i) {
+      cur = Math.max(0, Math.min(pages.length - 1, i));
+      pages.forEach(function (pg, k) {
+        pg.classList.toggle('off', k !== cur);
+        pg.setAttribute('aria-hidden', String(k !== cur));
+      });
+      thumbs.forEach(function (t, k) { t.setAttribute('aria-current', String(k === cur)); });
+      cnt.textContent = (cur + 1) + ' / ' + pages.length;
+      lbl.textContent = pages[cur].getAttribute('data-label');
+      bp.disabled = cur === 0; bn.disabled = cur === pages.length - 1;
+    }
+    bp.addEventListener('click', function () { go(cur - 1); });
+    bn.addEventListener('click', function () { go(cur + 1); });
+    thumbs.forEach(function (t, k) { t.addEventListener('click', function () { go(k); }); });
+    var pg = $('.spreads', book);
+    swipe(pg, function () { go(cur + 1); }, function () { go(cur - 1); });
+    pg.addEventListener('click', function (e) {
+      var r = pg.getBoundingClientRect();
+      if (e.clientX - r.left < r.width / 3) go(cur - 1); else go(cur + 1);
+    });
+    var bz = $('#book-zoom');
+    if (bz) bz.addEventListener('click', function () {
+      var imgs = $$('img', pages[cur]), duo = document.createElement('div'); duo.className = 'duo';
+      if (imgs.length === 1) duo.style.gridTemplateColumns = 'minmax(0, 560px)', duo.style.justifyContent = 'center';
+      imgs.forEach(function (s) { var f = document.createElement('figure'), im = document.createElement('img'); im.src = s.src; im.alt = s.alt; f.appendChild(im); duo.appendChild(f); });
+      openDialog(pages[cur].getAttribute('data-label'), duo, []);
+    });
+    book.addEventListener('keydown', function (e) { if (e.key === 'ArrowLeft') go(cur - 1); if (e.key === 'ArrowRight') go(cur + 1); });
+    go(0);
+  }
+
+  /* ---------- vragenlijst (Greene Climacteric Scale) ---------- */
+  var gcs = $('#gcs');
+  if (gcs) {
+    var G2 = JSON.parse($('#gcs-data').textContent);
+    var form = $('.gcs-form', gcs), out = $('.gcs-out', gcs);
+    G2.groups.forEach(function (grp) {
+      if (grp.title) { var sec = document.createElement('div'); sec.className = 'gcs-sec'; sec.textContent = grp.title; form.appendChild(sec); }
+      grp.items.forEach(function (n) {
+        var row = document.createElement('div'); row.className = 'gcs-row'; row.setAttribute('role', 'radiogroup');
+        var qid = 'gq' + n;
+        row.setAttribute('aria-labelledby', qid + '-t');
+        var html = '<span class="n">' + n + '</span><span class="q" id="' + qid + '-t"></span>';
+        for (var v = 0; v < 4; v++) html += '<label title="' + G2.scale[v] + '"><input type="radio" name="' + qid + '" id="' + qid + '-' + v + '" value="' + v + '" aria-label="' + G2.scale[v] + '"></label>';
+        row.innerHTML = html;
+        $('.q', row).textContent = G2.items[n - 1];
+        form.appendChild(row);
+      });
+    });
+    var bars = {};
+    G2.scores.forEach(function (sc) {
+      var b = document.createElement('div'); b.className = 'bar';
+      b.innerHTML = '<div class="bar-top"><span></span><b></b></div><div class="bar-track"><div class="bar-fill"></div></div>';
+      $('span', b).textContent = sc.label; $('.gcs-bars', out).appendChild(b); bars[sc.label] = b;
+    });
+    function calc() {
+      var val = {}, answered = 0, total = 0;
+      for (var n = 1; n <= 21; n++) {
+        var c = $('input[name="gq' + n + '"]:checked', form);
+        if (c) { val[n] = +c.value; answered++; total += +c.value; }
+      }
+      G2.scores.forEach(function (sc) {
+        var sum = 0; sc.items.forEach(function (n) { sum += val[n] || 0; });
+        var b = bars[sc.label]; $('b', b).textContent = sum + ' / ' + sc.items.length * 3;
+        $('.bar-fill', b).style.width = (sum / (sc.items.length * 3) * 100) + '%';
+      });
+      $('.gcs-total b', out).textContent = total;
+      $('.gcs-count', out).textContent = answered + tr(' van 21 ingevuld');
+    }
+    form.addEventListener('change', calc);
+    $('#gcs-reset').addEventListener('click', function () { $$('input', form).forEach(function (i) { i.checked = false; }); calc(); });
+    calc();
+  }
+
+  /* ---------- downloads ---------- */
+  // Op een gewone website (bijv. later bij Ksyos) werkt de link zelf als download.
+  // Binnen Claude gaat het via de downloads-functie van de pagina.
+  var dlApi = null, inClaude = !!(window.claude && window.claude.use);
+  if (inClaude) window.claude.use('downloads').then(function (d) { dlApi = d; }).catch(function () { dlApi = null; });
+  $$('a[data-dl]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      if (!inClaude) return;
+      e.preventDefault();
+      var msg = a.parentElement.querySelector('.dl-msg');
+      function say(t) { if (msg) { msg.textContent = t; msg.hidden = !t; } }
+      if (!dlApi) { say(tr('Downloaden lukt niet in deze weergave. Open de pagina in een browser.')); return; }
+      say(tr('Bestand wordt klaargezet…'));
+      fetch(a.getAttribute('href')).then(function (r) { if (!r.ok) throw new Error('fetch'); return r.blob(); })
+        .then(function (b) { return dlApi.save({ filename: a.getAttribute('download'), data: b }); })
+        .then(function () { say(''); })
+        .catch(function (err) {
+          var c = err && err.code;
+          if (c === 'declined') say('');
+          else if (c === 'rate_limited') say(tr('Even geduld en probeer het zo nog eens.'));
+          else say(tr('Downloaden lukt niet in deze weergave. Open de pagina in een browser.'));
+        });
+    });
+  });
+  /* ---------- vaste kopjes bovenaan + markeren waar je bent ---------- */
+  var bar = $('.topbar');
+  if (bar) {
+    var setH = function () { document.documentElement.style.setProperty('--navh', bar.offsetHeight + 'px'); };
+    setH(); window.addEventListener('resize', setH);
+    var links = $$('.top nav a'), secs = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+    var spy = function () {
+      var y = bar.getBoundingClientRect().bottom + window.innerHeight * 0.3, cur = -1;
+      secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= y) cur = i; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) cur = secs.length - 1;
+      links.forEach(function (a, i) {
+        var on = i === cur; a.classList.toggle('active', on);
+        if (on) { a.setAttribute('aria-current', 'location'); if (a._was !== true) { var nv = a.parentElement; if (nv.scrollWidth > nv.clientWidth) nv.scrollLeft = a.offsetLeft - nv.offsetLeft - 8; } } else a.removeAttribute('aria-current');
+        a._was = on;
+      });
+      bar.classList.toggle('scrolled', window.scrollY > 8);
+    };
+    var tick = false;
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; spy(); }); } }, { passive: true });
+    spy();
+  }
+
+  /* ---------- Greene: antwoorden als pdf ---------- */
+  var gp = $('#gcs-pdf');
+  if (gp) {
+    gp.addEventListener('click', function () {
+      var G3 = JSON.parse($('#gcs-data').textContent), msg = $('.gcs-msg');
+      function say(t) { msg.textContent = t; msg.hidden = !t; }
+      if (!window.jspdf) { say(tr('De pdf kan nu niet gemaakt worden. Probeer het later opnieuw.')); return; }
+      var ans = [], n, filled = 0;
+      for (n = 1; n <= 21; n++) { var c = document.querySelector('input[name="gq' + n + '"]:checked'); ans.push(c ? +c.value : null); if (c) filled++; }
+      var asc = function (t) { return String(t).replace(/[–—]/g, '-').replace(/[‘’]/g, "'"); };
+      var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+      var ink = [71, 61, 60], pink = [229, 3, 118], soft = [111, 98, 96], line = [228, 226, 221];
+      doc.setFillColor(255, 247, 235); doc.rect(0, 0, 210, 297, 'F');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(22); doc.setTextColor.apply(doc, pink); doc.text('Greene', 15, 22);
+      doc.setTextColor.apply(doc, ink); doc.text('Climacteric Scale', 15, 31);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor.apply(doc, soft);
+      var d = new Date(), ds = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
+      doc.text(tr('Ingevuld op ') + ds + ' (' + filled + tr(' van 21 vragen)'), 15, 39);
+      var y = 50;
+      doc.setFillColor.apply(doc, pink); doc.roundedRect(15, y - 6, 180, 9, 2, 2, 'F');
+      doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
+      doc.text(tr('Klachten'), 26, y); G3.scale.forEach(function (s, i) { doc.setFontSize(9.5); doc.text(String(i), 112 + i * 18, y - 1.8, { align: 'center' }); doc.setFontSize(6.5); doc.text(asc(s), 112 + i * 18, y + 1.6, { align: 'center' }); }); doc.setFontSize(9); doc.text('Score', 186, y, { align: 'center' });
+      y += 8; doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
+      G3.items.forEach(function (q, i) {
+        doc.setFillColor(255, 255, 255); doc.rect(15, y - 5, 180, 8.4, 'F');
+        doc.setDrawColor.apply(doc, line); doc.line(15, y + 3.4, 195, y + 3.4);
+        doc.setTextColor.apply(doc, soft); doc.text(String(i + 1) + '.', 23, y, { align: 'right' });
+        doc.setTextColor.apply(doc, ink); doc.text(asc(q), 26, y);
+        for (var v = 0; v < 4; v++) {
+          var cx = 112 + v * 18;
+          doc.setDrawColor.apply(doc, ink); doc.setLineWidth(0.3); doc.circle(cx, y - 1.2, 2.1, 'S');
+          if (ans[i] === v) { doc.setFillColor.apply(doc, pink); doc.circle(cx, y - 1.2, 1.3, 'F'); }
+        }
+        doc.setFont('helvetica', 'bold'); doc.text(ans[i] === null ? '-' : String(ans[i]), 186, y, { align: 'center' }); doc.setFont('helvetica', 'normal');
+        y += 8.4;
+      });
+      y += 6;
+      doc.setFillColor(255, 255, 255); doc.roundedRect(15, y - 5, 180, 42, 3, 3, 'F');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text(tr('Scores'), 21, y + 1); doc.setFontSize(10);
+      var tot = 0; ans.forEach(function (a) { tot += a || 0; });
+      var rows = G3.scores.map(function (sc) { var s = 0; sc.items.forEach(function (k) { s += ans[k - 1] || 0; }); return [asc(sc.label), s + ' / ' + sc.items.length * 3]; });
+      rows.push([tr('Totaal (0-63)'), String(tot)]);
+      rows.forEach(function (r, i) {
+        var col = i < 4 ? 0 : 1, row = i < 4 ? i : i - 4, x = 21 + col * 90, yy = y + 9 + row * 7;
+        doc.setFont('helvetica', i === rows.length - 1 ? 'bold' : 'normal'); doc.text(r[0], x, yy); doc.text(r[1], x + 78, yy, { align: 'right' });
+      });
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.setTextColor.apply(doc, soft);
+      doc.text(tr('Greene JG. Constructing a standard climacteric scale. Maturitas 1998;29:25-31; herdruk Maturitas 2008;61:78-83. Ingevuld via Ksyos.'), 15, 287);
+      var blob = doc.output('blob'), name = 'Greene_Climacteric_Scale_' + ds + '.pdf';
+      if (window.claude && window.claude.use) {
+        say(tr('Pdf wordt klaargezet…'));
+        window.claude.use('downloads').then(function (api) {
+          if (!api) throw { code: 'unavailable' };
+          return api.save({ filename: name, data: blob });
+        }).then(function () { say(''); }).catch(function (e) {
+          say(e && e.code === 'declined' ? '' : tr('Opslaan lukt niet in deze weergave. Open de pagina in een browser.'));
+        });
+      } else {
+        var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+        document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+      }
+    });
+  }
+})();
+
+</script>
+
+</body>
+</html>

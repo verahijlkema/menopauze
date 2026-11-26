@@ -36,7 +36,7 @@ h3 { font-size: 1.2rem; letter-spacing: -0.01em; }
 p { margin: 0; }
 .hl { color: var(--pink); }
 .or { color: var(--orange); }
-.lead { font-size: clamp(1.08rem, 2vw, 1.25rem); max-width: 52em; color: var(--ink-soft); }
+.lead { font-size: clamp(1.08rem, 2vw, 1.25rem); max-width: none; color: var(--ink-soft); }
 a { color: inherit; }
 :focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; border-radius: 6px; }
 
@@ -61,7 +61,7 @@ html { scroll-padding-top: calc(var(--navh, 64px) + 8px); }
 .band + .band { border-top: 1px solid var(--line); }
 .band.plain { background: var(--paper); }
 .band-head { display: grid; gap: 12px; margin-bottom: 30px; }
-.band-head p { text-wrap: balance; max-width: 52em; color: var(--ink-soft); font-size: 1.05rem; }
+.band-head p { text-wrap: pretty; max-width: none; color: var(--ink-soft); font-size: 1.05rem; }
 .kicker { font-family: var(--f-display); font-weight: 600; font-size: 1.15rem; color: var(--accent-ink); }
 
 /* controls */
@@ -280,13 +280,22 @@ footer strong { color: var(--ink); }
 .flip-hint { text-align: center; color: var(--ink-soft); font-size: .95rem; margin-bottom: 14px; }
 .lead, .gsub p, .gcs-note, .steps span { text-wrap: pretty; }
 
+/* subtiele wissel: andere doelgroep en taal */
+.switch { display: flex; align-items: center; gap: 2px; flex: none; margin-left: 4px; padding-left: 10px; border-left: 1px solid var(--line); }
+.switch a { text-decoration: none; font-size: .8rem; color: var(--ink-soft); padding: 5px 8px; border-radius: 999px; white-space: nowrap; }
+.switch a:hover { color: var(--ink); background: var(--band); }
+.switch a[hreflang] { font-weight: 600; letter-spacing: .04em; }
+.top nav { margin-left: auto; }
+@media (max-width: 560px) { .switch { padding-left: 6px; margin-left: 0; } .switch a { padding: 5px 6px; font-size: .76rem; } }
+.nl-note { font-size: .9rem; color: var(--ink-soft); background: var(--band); border-radius: 10px; padding: 8px 14px; justify-self: start; }
+
 :root { --accent: var(--pink); --accent-ink: #b0025a; --band: var(--tint-pink); }
 </style>
 </head>
 <body>
 
 
-<header class="topbar"><div class="wrap top"><img src="img/ksyos-logo.png" alt="Ksyos"><nav aria-label="Op deze pagina"><a href="#waaier">Waaier</a><a href="#kaart">Huisartskaart</a><a href="#vragenlijst">Vragenlijst</a><a href="#printen">Printen</a></nav></div></header>
+<header class="topbar"><div class="wrap top"><img src="img/ksyos-logo.png" alt="Ksyos"><nav aria-label="Op deze pagina"><a href="#waaier">Waaier</a><a href="#kaart">Huisartskaart</a><a href="#vragenlijst">Vragenlijst</a><a href="#printen">Printen</a></nav><div class="switch"><a href="patienten.html">Voor patiënten</a><a href="gps.html" hreflang="en" title="English version">EN</a></div></div></header>
 <section class="wrap hero">
   <span class="eyebrow">Ksyos Menopauze · voor huisartsen</span>
   <h1>Herken de <span class="or">peri</span><span class="hl">menopauze</span></h1>
@@ -379,10 +388,13 @@ footer strong { color: var(--ink); }
 </footer>
 
 <dialog id="dlg" aria-labelledby="dlg-title"><div class="dlg"><div class="dlg-top"><strong id="dlg-title"></strong><button type="button" class="iconbtn" id="dlg-close" aria-label="Sluiten"></button></div><div class="dlg-body" id="dlg-body"></div><div class="dlg-bottom" id="dlg-bottom"></div></div></dialog>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 (function () {
   'use strict';
+  var TT = {}; try { TT = JSON.parse(document.getElementById('i18n').textContent); } catch (e) {}
+  var tr = function (nl) { return TT[nl] || nl; };
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -467,7 +479,7 @@ footer strong { color: var(--ink); }
     function labelBlades() {
       blades.forEach(function (b, i) {
         var d = side === 'front' ? data.front[i] : data.back[i];
-        b.setAttribute('aria-label', 'Blad ' + (i + 1) + ': ' + d.name + '. Tik om groot te bekijken.');
+        b.setAttribute('aria-label', tr('Blad ') + (i + 1) + ': ' + d.name + tr('. Tik om groot te bekijken.'));
       });
     }
     function bbox(st) {
@@ -543,9 +555,9 @@ footer strong { color: var(--ink); }
       var cur = i, flipped = side === 'back';
       var big = document.createElement('button'); big.type = 'button'; big.className = 'big-blade';
       big.innerHTML = '<span class="card"><span class="face front"><img alt=""></span><span class="face back"><img alt=""></span></span>';
-      var prev = mkBtn('iconbtn', ARROW_L, 'Vorig blad', function () { if (cur > 0) { cur--; show(); } });
-      var next = mkBtn('iconbtn', ARROW_R, 'Volgend blad', function () { if (cur < N - 1) { cur++; show(); } });
-      var turn = mkBtn('btn', TURN + '<span> Draai om</span>', null, function () { flipped = !flipped; show(); });
+      var prev = mkBtn('iconbtn', ARROW_L, tr('Vorig blad'), function () { if (cur > 0) { cur--; show(); } });
+      var next = mkBtn('iconbtn', ARROW_R, tr('Volgend blad'), function () { if (cur < N - 1) { cur++; show(); } });
+      var turn = mkBtn('btn', TURN + '<span>' + tr(' Draai om') + '</span>', null, function () { flipped = !flipped; show(); });
       var count = document.createElement('span'); count.style.minWidth = '4em'; count.style.textAlign = 'center';
       function show() {
         $('.front img', big).src = data.front[cur].img; $('.front img', big).alt = data.front[cur].alt;
@@ -554,11 +566,11 @@ footer strong { color: var(--ink); }
         $('#dlg-title').textContent = flipped ? data.back[cur].name : data.front[cur].name;
         count.textContent = (cur + 1) + ' / ' + N;
         prev.disabled = cur === 0; next.disabled = cur === N - 1;
-        turn.lastChild.textContent = flipped ? ' Bekijk voorkant' : ' Draai om';
+        turn.lastChild.textContent = flipped ? tr(' Bekijk voorkant') : tr(' Draai om');
         tb.forEach(function (x, k) { var d = flipped ? data.back[k] : data.front[k]; $('img', x).src = d.img; x.setAttribute('aria-label', d.name); x.setAttribute('aria-current', String(k === cur)); });
       }
       var wrapv = document.createElement('div'); wrapv.className = 'bv';
-      var strip = document.createElement('div'); strip.className = 'bstrip'; strip.setAttribute('aria-label', 'Alle bladen');
+      var strip = document.createElement('div'); strip.className = 'bstrip'; strip.setAttribute('aria-label', tr('Alle bladen'));
       var tb = [];
       for (var t = 0; t < N; t++) (function (t) {
         var x = document.createElement('button'); x.type = 'button'; x.innerHTML = '<img alt="">';
@@ -708,8 +720,8 @@ footer strong { color: var(--ink); }
     var btn = $('#' + f.getAttribute('data-button'));
     function upd() {
       var on = f.classList.contains('flipped');
-      f.setAttribute('aria-label', (on ? lab[1] : lab[0]) + '. Tik om om te draaien.');
-      if (btn) btn.lastChild.textContent = on ? ' Bekijk voorkant' : ' Bekijk achterkant';
+      f.setAttribute('aria-label', (on ? lab[1] : lab[0]) + tr('. Tik om om te draaien.'));
+      if (btn) btn.lastChild.textContent = on ? tr(' Bekijk voorkant') : tr(' Bekijk achterkant');
     }
     function toggle() { f.classList.toggle('flipped'); upd(); }
     f.addEventListener('click', toggle);
@@ -718,12 +730,12 @@ footer strong { color: var(--ink); }
     var zb = $('#' + f.getAttribute('data-zoom'));
     if (zb) zb.addEventListener('click', function () {
       var duo = document.createElement('div'); duo.className = 'duo';
-      [['.front img', 'Voorkant'], ['.back img', 'Achterkant']].forEach(function (x) {
+      [['.front img', tr('Voorkant')], ['.back img', tr('Achterkant')]].forEach(function (x) {
         var src = $(x[0], f), fig = document.createElement('figure'), im = document.createElement('img'), cap = document.createElement('figcaption');
         im.src = src.src; im.alt = src.alt; cap.textContent = x[1];
         fig.appendChild(im); fig.appendChild(cap); duo.appendChild(fig);
       });
-      openDialog(f.getAttribute('data-title') || 'Kaart', duo, []);
+      openDialog(f.getAttribute('data-title') || tr('Kaart'), duo, []);
     });
   });
 
@@ -800,7 +812,7 @@ footer strong { color: var(--ink); }
         $('.bar-fill', b).style.width = (sum / (sc.items.length * 3) * 100) + '%';
       });
       $('.gcs-total b', out).textContent = total;
-      $('.gcs-count', out).textContent = answered + ' van 21 ingevuld';
+      $('.gcs-count', out).textContent = answered + tr(' van 21 ingevuld');
     }
     form.addEventListener('change', calc);
     $('#gcs-reset').addEventListener('click', function () { $$('input', form).forEach(function (i) { i.checked = false; }); calc(); });
@@ -818,16 +830,16 @@ footer strong { color: var(--ink); }
       e.preventDefault();
       var msg = a.parentElement.querySelector('.dl-msg');
       function say(t) { if (msg) { msg.textContent = t; msg.hidden = !t; } }
-      if (!dlApi) { say('Downloaden lukt niet in deze weergave. Open de pagina in een browser.'); return; }
-      say('Bestand wordt klaargezet…');
+      if (!dlApi) { say(tr('Downloaden lukt niet in deze weergave. Open de pagina in een browser.')); return; }
+      say(tr('Bestand wordt klaargezet…'));
       fetch(a.getAttribute('href')).then(function (r) { if (!r.ok) throw new Error('fetch'); return r.blob(); })
         .then(function (b) { return dlApi.save({ filename: a.getAttribute('download'), data: b }); })
         .then(function () { say(''); })
         .catch(function (err) {
           var c = err && err.code;
           if (c === 'declined') say('');
-          else if (c === 'rate_limited') say('Even geduld en probeer het zo nog eens.');
-          else say('Downloaden lukt niet in deze weergave. Open de pagina in een browser.');
+          else if (c === 'rate_limited') say(tr('Even geduld en probeer het zo nog eens.'));
+          else say(tr('Downloaden lukt niet in deze weergave. Open de pagina in een browser.'));
         });
     });
   });
@@ -859,7 +871,7 @@ footer strong { color: var(--ink); }
     gp.addEventListener('click', function () {
       var G3 = JSON.parse($('#gcs-data').textContent), msg = $('.gcs-msg');
       function say(t) { msg.textContent = t; msg.hidden = !t; }
-      if (!window.jspdf) { say('De pdf kan nu niet gemaakt worden. Probeer het later opnieuw.'); return; }
+      if (!window.jspdf) { say(tr('De pdf kan nu niet gemaakt worden. Probeer het later opnieuw.')); return; }
       var ans = [], n, filled = 0;
       for (n = 1; n <= 21; n++) { var c = document.querySelector('input[name="gq' + n + '"]:checked'); ans.push(c ? +c.value : null); if (c) filled++; }
       var asc = function (t) { return String(t).replace(/[–—]/g, '-').replace(/[‘’]/g, "'"); };
@@ -870,11 +882,11 @@ footer strong { color: var(--ink); }
       doc.setTextColor.apply(doc, ink); doc.text('Climacteric Scale', 15, 31);
       doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor.apply(doc, soft);
       var d = new Date(), ds = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
-      doc.text('Ingevuld op ' + ds + ' (' + filled + ' van 21 vragen)', 15, 39);
+      doc.text(tr('Ingevuld op ') + ds + ' (' + filled + tr(' van 21 vragen)'), 15, 39);
       var y = 50;
       doc.setFillColor.apply(doc, pink); doc.roundedRect(15, y - 6, 180, 9, 2, 2, 'F');
       doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
-      doc.text('Klachten', 26, y); G3.scale.forEach(function (s, i) { doc.setFontSize(9.5); doc.text(String(i), 112 + i * 18, y - 1.8, { align: 'center' }); doc.setFontSize(6.5); doc.text(asc(s), 112 + i * 18, y + 1.6, { align: 'center' }); }); doc.setFontSize(9); doc.text('Score', 186, y, { align: 'center' });
+      doc.text(tr('Klachten'), 26, y); G3.scale.forEach(function (s, i) { doc.setFontSize(9.5); doc.text(String(i), 112 + i * 18, y - 1.8, { align: 'center' }); doc.setFontSize(6.5); doc.text(asc(s), 112 + i * 18, y + 1.6, { align: 'center' }); }); doc.setFontSize(9); doc.text('Score', 186, y, { align: 'center' });
       y += 8; doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
       G3.items.forEach(function (q, i) {
         doc.setFillColor(255, 255, 255); doc.rect(15, y - 5, 180, 8.4, 'F');
@@ -891,24 +903,24 @@ footer strong { color: var(--ink); }
       });
       y += 6;
       doc.setFillColor(255, 255, 255); doc.roundedRect(15, y - 5, 180, 42, 3, 3, 'F');
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text('Scores', 21, y + 1); doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text(tr('Scores'), 21, y + 1); doc.setFontSize(10);
       var tot = 0; ans.forEach(function (a) { tot += a || 0; });
       var rows = G3.scores.map(function (sc) { var s = 0; sc.items.forEach(function (k) { s += ans[k - 1] || 0; }); return [asc(sc.label), s + ' / ' + sc.items.length * 3]; });
-      rows.push(['Totaal (0-63)', String(tot)]);
+      rows.push([tr('Totaal (0-63)'), String(tot)]);
       rows.forEach(function (r, i) {
         var col = i < 4 ? 0 : 1, row = i < 4 ? i : i - 4, x = 21 + col * 90, yy = y + 9 + row * 7;
         doc.setFont('helvetica', i === rows.length - 1 ? 'bold' : 'normal'); doc.text(r[0], x, yy); doc.text(r[1], x + 78, yy, { align: 'right' });
       });
       doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5); doc.setTextColor.apply(doc, soft);
-      doc.text('Greene JG. Constructing a standard climacteric scale. Maturitas 1998;29:25-31; herdruk Maturitas 2008;61:78-83. Ingevuld via Ksyos.', 15, 287);
+      doc.text(tr('Greene JG. Constructing a standard climacteric scale. Maturitas 1998;29:25-31; herdruk Maturitas 2008;61:78-83. Ingevuld via Ksyos.'), 15, 287);
       var blob = doc.output('blob'), name = 'Greene_Climacteric_Scale_' + ds + '.pdf';
       if (window.claude && window.claude.use) {
-        say('Pdf wordt klaargezet…');
+        say(tr('Pdf wordt klaargezet…'));
         window.claude.use('downloads').then(function (api) {
           if (!api) throw { code: 'unavailable' };
           return api.save({ filename: name, data: blob });
         }).then(function () { say(''); }).catch(function (e) {
-          say(e && e.code === 'declined' ? '' : 'Opslaan lukt niet in deze weergave. Open de pagina in een browser.');
+          say(e && e.code === 'declined' ? '' : tr('Opslaan lukt niet in deze weergave. Open de pagina in een browser.'));
         });
       } else {
         var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
