@@ -291,6 +291,23 @@ footer strong { color: var(--ink); }
 .side-label { font-size: .92rem; color: var(--ink-soft); min-width: 13em; }
 .side-label b { color: var(--ink); }
 
+/* tijdlijn in de intro */
+.hero.has-tl { grid-template-columns: minmax(0, 1fr) 330px; column-gap: 64px; align-items: center; }
+.hero-text { display: grid; gap: 18px; align-content: center; min-width: 0; }
+.tl-card { background: var(--band); border-radius: 20px; padding: 24px 24px 20px; display: grid; gap: 12px; }
+.tl-card h2 { font-size: 1.7rem; line-height: 1.05; }
+.tl-card p { font-size: .98rem; color: var(--ink-soft); text-wrap: pretty; }
+.tl-svg { width: 100%; height: auto; display: block; margin-top: 4px; overflow: visible; }
+.tl-svg text { font-family: var(--f-body); font-size: 12.8px; font-weight: 600; letter-spacing: .01em; }
+.tl-svg .tl-grey { fill: #968779; }
+.tl-svg .tl-or { fill: #E8780A; font-weight: 700; }
+.tl-svg .tl-pink { fill: #E50376; font-weight: 700; }
+.tl-svg .tl-vert { fill: #473D3C; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
+@media (max-width: 820px) {
+  .hero.has-tl { grid-template-columns: 1fr; }
+  .tl-card { max-width: 360px; }
+}
+
 :root { --accent: var(--orange); --accent-ink: #9a5200; --band: var(--tint-orange); }
 </style>
 </head>
@@ -298,12 +315,34 @@ footer strong { color: var(--ink); }
 
 
 <header class="topbar"><div class="wrap top"><img src="img/ksyos-logo.png" alt="Ksyos"><nav aria-label="On this page"><a href="#waaier">Fan</a><a href="#kaart">Preparing your appointment</a><a href="#vragenlijst">Questionnaire</a><a href="#printen">Print</a></nav><div class="switch"><a href="gps.html">For GPs</a><a href="patienten.html" hreflang="nl" title="Nederlandse versie">NL</a></div></div></header>
-<section class="wrap hero">
+<section class="wrap hero has-tl"><div class="hero-text">
   <span class="eyebrow">Information about the menopause transition</span>
   <h1>Is this the <span class="or">peri</span><span class="hl">menopause?</span></h1>
   <p class="lead">From around the age of 40, your hormones can start to change. This can cause many different symptoms, even if you still have regular periods.</p>
   <p class="lead">It can be hard to know where to start, or what to talk about with your GP. That is why we made a few simple tools: a fan, a card to prepare your appointment and a questionnaire. Read about it in advance, or discuss it with your healthcare provider.</p>
   <p class="nl-note">The fan, the card and the printable files are currently available in Dutch only.</p>
+</div>
+  <aside class="tl-card" aria-labelledby="tl-h-en">
+  <h2 id="tl-h-en">When is the<br><span class="hl">menopause transition?</span></h2>
+  <p>The menopause transition is the time around your final period. Your ovaries make fewer and fewer hormones.</p>
+  <svg class="tl-svg" viewBox="0 0 240 392" role="img" aria-label="Timeline of the menopause transition: before the transition; perimenopause, your hormones fluctuate and your cycle can change; menopause, your final period; postmenopause, from 1 year after your final period. Perimenopause and menopause together fall within the transition.">
+  <defs>
+    <linearGradient id="tl-top-en" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EFEBE7"/><stop offset="1" stop-color="#B9B0A8"/></linearGradient>
+    <linearGradient id="tl-bot-en" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9B0A8"/><stop offset="1" stop-color="#F3F0EC"/></linearGradient>
+    <linearGradient id="tl-or-en" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FE9E31"/><stop offset="1" stop-color="#FB8F1A"/></linearGradient>
+  </defs>
+  <rect x="2" y="58" width="234" height="204" rx="10" fill="#fff" stroke="#473D3C" stroke-width="1.3"/>
+  <path d="M34 12 Q34 2 44 2 H60 Q70 2 70 12 V86 H34 Z" fill="url(#tl-top-en)"/>
+  <path d="M34 236 L52 250 L70 236 V376 L52 390 L34 376 Z" fill="url(#tl-bot-en)"/>
+  <path d="M34 68 L52 82 L70 68 V236 L52 250 L34 236 Z" fill="url(#tl-or-en)"/>
+  <circle cx="52" cy="210" r="6.5" fill="#E50376" stroke="#fff" stroke-width="2"/>
+  <text class="tl-vert" transform="translate(21 160) rotate(-90)" text-anchor="middle">THE TRANSITION</text>
+  <text class="tl-grey" x="84" y="16"><tspan x="84" dy="0">before the</tspan><tspan x="84" dy="15.5">transition</tspan></text>
+  <text class="tl-or" x="84" y="84"><tspan x="84" dy="0">PERI-</tspan><tspan x="84" dy="15.5">MENOPAUSE:</tspan><tspan x="84" dy="15.5">your hormones</tspan><tspan x="84" dy="15.5">fluctuate,</tspan><tspan x="84" dy="15.5">your cycle can</tspan><tspan x="84" dy="15.5">change</tspan></text>
+  <text class="tl-pink" x="84" y="194"><tspan x="84" dy="0">MENOPAUSE:</tspan><tspan x="84" dy="15.5">your final</tspan><tspan x="84" dy="15.5">period</tspan></text>
+  <text class="tl-grey" x="84" y="284"><tspan x="84" dy="0">POST-</tspan><tspan x="84" dy="15.5">MENOPAUSE:</tspan><tspan x="84" dy="15.5">from 1 year</tspan><tspan x="84" dy="15.5">after your</tspan><tspan x="84" dy="15.5">final period</tspan></text>
+</svg>
+</aside>
 </section>
 
 <section class="band" id="waaier" aria-labelledby="h-fan">
