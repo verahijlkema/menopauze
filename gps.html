@@ -291,22 +291,20 @@ footer strong { color: var(--ink); }
 .side-label { font-size: .92rem; color: var(--ink-soft); min-width: 13em; }
 .side-label b { color: var(--ink); }
 
-/* tijdlijn in de intro */
-.hero.has-tl { grid-template-columns: minmax(0, 1fr) 330px; column-gap: 64px; align-items: center; }
-.hero-text { display: grid; gap: 18px; align-content: center; min-width: 0; }
-.tl-card { background: var(--band); border-radius: 20px; padding: 24px 24px 20px; display: grid; gap: 12px; }
-.tl-card h2 { font-size: 1.7rem; line-height: 1.05; }
-.tl-card p { font-size: .98rem; color: var(--ink-soft); text-wrap: pretty; }
-.tl-svg { width: 100%; height: auto; display: block; margin-top: 4px; overflow: visible; }
-.tl-svg text { font-family: var(--f-body); font-size: 12.8px; font-weight: 600; letter-spacing: .01em; }
-.tl-svg .tl-grey { fill: #968779; }
-.tl-svg .tl-or { fill: #E8780A; font-weight: 700; }
-.tl-svg .tl-pink { fill: #E50376; font-weight: 700; }
-.tl-svg .tl-vert { fill: #473D3C; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
-@media (max-width: 820px) {
-  .hero.has-tl { grid-template-columns: 1fr; }
-  .tl-card { max-width: 360px; }
-}
+/* tijdlijn: termen uitgelegd */
+.tl-band { border-top: 1px solid var(--line); }
+.tl-h { width: 100%; height: auto; display: block; overflow: visible; }
+.tl-v { display: none; width: 100%; max-width: 340px; height: auto; margin: 0 auto; overflow: visible; }
+.tl-h text, .tl-v text { font-family: var(--f-body); }
+.tl-term { font-size: 15px; font-weight: 700; letter-spacing: .03em; }
+.tl-sub { font-size: 15px; font-weight: 500; fill: var(--ink-soft); }
+.tl-over { font-size: 14px; font-weight: 700; letter-spacing: .12em; fill: #473D3C; }
+.tl-grey { fill: #8a7c70; }
+.tl-or { fill: #D96A00; }
+.tl-pink { fill: #E50376; }
+.tl-small { font-size: 12.8px; font-weight: 700; }
+.tl-vert { fill: #473D3C; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
+@media (max-width: 720px) { .tl-h { display: none; } .tl-v { display: block; } }
 
 :root { --accent: var(--pink); --accent-ink: #b0025a; --band: var(--tint-pink); }
 </style>
