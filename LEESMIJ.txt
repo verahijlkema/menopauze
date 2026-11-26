@@ -1,0 +1,18 @@
+Overgang: digitale waaiers en kaarten (Ksyos)
+=============================================
+patienten.html   Waaier (klachten + tips), kaart, vragenlijst en PDF's om te printen.
+huisartsen.html  Waaier, huisartskaart, verwijzen via ZorgDomein, vragenlijst en PDF's.
+
+Plaatsen: zet de hele map 'overgang' op de server (bijv. ksyos.nl/overgang/).
+Er is geen server of database nodig; alles staat in deze map.
+
+Aanpassen:
+- Nieuwe versie van een kaart of waaierblad: vervang het plaatje in img/ (zelfde naam)
+  en de PDF in pdf/.
+- Lettertype: nu Inter (Google Fonts) als vervanger van Aktiv Grotesk. Laad op ksyos.nl
+  de eigen Adobe Fonts-kit; Aktiv Grotesk staat al als tweede keuze in de CSS.
+
+Let op, Greene Climacteric Scale:
+- Gebruik vraagt toestemming van RWS Life Sciences (greeneclimactericscale@rws.com).
+- De Nederlandse tekst is een werkvertaling. Vervang die door de officiële Nederlandse
+  versie voordat de pagina openbaar wordt.
