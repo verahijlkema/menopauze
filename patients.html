@@ -290,6 +290,7 @@ footer strong { color: var(--ink); }
 .nl-note { font-size: .9rem; color: var(--ink-soft); background: var(--band); border-radius: 10px; padding: 8px 14px; justify-self: start; }
 .side-label { font-size: .92rem; color: var(--ink-soft); min-width: 13em; }
 .side-label b { color: var(--ink); }
+.gcs-row .q { min-width: 0; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: anywhere; }
 
 /* tijdlijn: termen uitgelegd */
 .tl-band { border-top: 1px solid var(--line); }
@@ -392,7 +393,7 @@ footer strong { color: var(--ink); }
   <div class="wrap">
     <div class="band-head"><span class="kicker">Questionnaire</span><h2 id="h-gcs">Greene Climacteric Scale</h2>
       <p>This questionnaire is used all over the world to measure symptoms of the menopause. It shows which symptoms you have and how much they bother you. For each symptom, choose how much it bothers you right now. Done? Make a PDF and take it to your GP.</p></div>
-    <div class="gcs" id="gcs">
+    <div class="gcs" id="gcs" lang="en">
   <div class="gcs-form"><div class="gcs-head" aria-hidden="true"><span>#</span><span>Symptoms</span><span>Not at all</span><span>A little</span><span>Quite a bit</span><span>Extremely</span></div></div>
   <aside class="gcs-out" aria-live="polite"><h3>Score</h3><p class="sub">Score per symptom 0–3. Your answers are not stored or sent anywhere.</p><div class="gcs-bars"></div>
     <div class="gcs-total"><span>Total (0–63)</span><b>0</b></div><p class="sub gcs-count"></p>
@@ -907,6 +908,7 @@ footer strong { color: var(--ink); }
         if (on) { a.setAttribute('aria-current', 'location'); if (a._was !== true) { var nv = a.parentElement; if (nv.scrollWidth > nv.clientWidth) nv.scrollLeft = a.offsetLeft - nv.offsetLeft - 8; } } else a.removeAttribute('aria-current');
         a._was = on;
       });
+      if (cur < 0 && links[0]) links[0].parentElement.scrollLeft = 0;
       bar.classList.toggle('scrolled', window.scrollY > 8);
     };
     var tick = false;

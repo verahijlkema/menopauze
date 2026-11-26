@@ -290,6 +290,7 @@ footer strong { color: var(--ink); }
 .nl-note { font-size: .9rem; color: var(--ink-soft); background: var(--band); border-radius: 10px; padding: 8px 14px; justify-self: start; }
 .side-label { font-size: .92rem; color: var(--ink-soft); min-width: 13em; }
 .side-label b { color: var(--ink); }
+.gcs-row .q { min-width: 0; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: anywhere; }
 
 /* tijdlijn: termen uitgelegd */
 .tl-band { border-top: 1px solid var(--line); }
@@ -317,7 +318,7 @@ footer strong { color: var(--ink); }
 <section class="wrap hero">
   <span class="eyebrow">Ksyos Menopause · for GPs</span>
   <h1>Recognise the <span class="or">peri</span><span class="hl">menopause</span></h1>
-  <p class="lead">Symptoms often start years before the final menstrual period, and they go well beyond hot flushes. The fan and the card help with recognising, asking the right questions and referring.</p>
+  <p class="lead">Symptoms often start years before the final menstrual period, and they go well beyond hot flushes. The fan, the card and the questionnaire help with recognising, asking the right questions and referring.</p>
   <p class="nl-note">The fan, the card and the printable files are currently available in Dutch only.</p>
 </section>
 
@@ -360,7 +361,7 @@ footer strong { color: var(--ink); }
     <div class="gcs-use">
       <h3>How to use it</h3>
       <ol class="steps">
-        <li><div><strong>Before the consultation</strong><span>Ask the patient to fill in the questionnaire beforehand, on paper or via the patient page.</span></div></li>
+        <li><div><strong>Before the consultation</strong><span>Ask the patient to fill in the questionnaire beforehand, on paper or via the <a href="patients.html">patient page</a>.</span></div></li>
         <li><div><strong>During the consultation</strong><span>Start with the most bothersome symptoms: what does the patient want help with?</span></div></li>
         <li><div><strong>At follow-up</strong><span>Repeat the questionnaire, for example 3 months after starting treatment (<a href="https://www.nice.org.uk/guidance/ng23" target="_blank" rel="noopener">NICE NG23</a>), and compare.</span></div></li>
       </ol>
@@ -383,7 +384,7 @@ footer strong { color: var(--ink); }
   <div class="wrap">
     <div class="band-head"><span class="kicker">Print</span><h2 id="h-print">Downloads for your practice</h2></div>
     <div class="dl-grid">
-      <div class="dl"><img src="img/ha-1.webp" alt="" loading="lazy"><div><h3>GP card (Dutch)</h3><small>A5, front and back · PDF, 0.4 MB</small>
+      <div class="dl"><img src="img/ha-1.webp" alt="" loading="lazy"><div><h3>GP card (Dutch)</h3><small>A5, front and back · PDF, 0.1 MB</small>
 <a class="btn solid" href="pdf/Huisartskaart_overgang_Ksyos.pdf" download="GP_card_perimenopause_Ksyos_NL.pdf" data-dl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Download</span></a><span class="dl-msg" hidden></span></div></div>
       <div class="dl"><img src="img/wa-fan-thumb.webp" alt="" loading="lazy"><div><h3>Fan (Dutch)</h3><small>A3 landscape, 1 page · PDF, 1.4 MB</small>
 <a class="btn solid" href="pdf/Waaier_overgang_huisarts_Ksyos.pdf" download="Fan_perimenopause_Ksyos_NL.pdf" data-dl><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Download</span></a><span class="dl-msg" hidden></span></div></div>
@@ -882,6 +883,7 @@ footer strong { color: var(--ink); }
         if (on) { a.setAttribute('aria-current', 'location'); if (a._was !== true) { var nv = a.parentElement; if (nv.scrollWidth > nv.clientWidth) nv.scrollLeft = a.offsetLeft - nv.offsetLeft - 8; } } else a.removeAttribute('aria-current');
         a._was = on;
       });
+      if (cur < 0 && links[0]) links[0].parentElement.scrollLeft = 0;
       bar.classList.toggle('scrolled', window.scrollY > 8);
     };
     var tick = false;
