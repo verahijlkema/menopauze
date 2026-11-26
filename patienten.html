@@ -288,6 +288,8 @@ footer strong { color: var(--ink); }
 .top nav { margin-left: auto; }
 @media (max-width: 560px) { .switch { padding-left: 6px; margin-left: 0; } .switch a { padding: 5px 6px; font-size: .76rem; } }
 .nl-note { font-size: .9rem; color: var(--ink-soft); background: var(--band); border-radius: 10px; padding: 8px 14px; justify-self: start; }
+.side-label { font-size: .92rem; color: var(--ink-soft); min-width: 13em; }
+.side-label b { color: var(--ink); }
 
 :root { --accent: var(--orange); --accent-ink: #9a5200; --band: var(--tint-orange); }
 </style>
@@ -309,7 +311,7 @@ footer strong { color: var(--ink); }
       <p>Elk blad gaat over een ander deel van je lichaam. Tik op een blad om het groot te zien. Benieuwd wat je zelf kunt doen? Draai de waaier om voor tips.</p></div>
     <div class="fan-3d"><div class="fan-stage" id="fan" aria-label="Waaier met 10 bladen"></div></div>
     <div class="controls">
-      <div class="seg" role="group" aria-label="Kant van de waaier"><button type="button" data-side="front" aria-pressed="true">Herkennen</button><button type="button" data-side="back" aria-pressed="false">Doen</button></div>
+      <button type="button" class="btn" id="fan-turn" aria-pressed="false" data-front="Voorkant: klachten herkennen" data-back="Achterkant: wat je zelf kunt doen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg><span> Draai om</span></button><span class="side-label" id="fan-side" aria-live="polite">Voorkant: klachten herkennen</span>
       <label class="range" for="fan-open">Dicht<input type="range" id="fan-open" min="0" max="10" step="0.5" value="9">Open</label>
     </div>
   </div>
@@ -529,8 +531,13 @@ footer strong { color: var(--ink); }
       fan.classList.toggle('back', s === 'back'); orient();
       $$('[data-side]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-side') === s)); });
       labelBlades();
+      var lab = $('#fan-side'), tb = $('#fan-turn');
+      if (lab && tb) lab.textContent = tb.getAttribute(s === 'back' ? 'data-back' : 'data-front');
+      if (tb) tb.setAttribute('aria-pressed', String(s === 'back'));
     }
     $$('[data-side]').forEach(function (x) { x.addEventListener('click', function () { setSide(x.getAttribute('data-side')); }); });
+    var turnBtn = $('#fan-turn');
+    if (turnBtn) turnBtn.addEventListener('click', function () { setSide(side === 'front' ? 'back' : 'front'); });
     var rng = $('#fan-open');
     if (rng) rng.addEventListener('input', function () { blades.forEach(function (b) { b.style.transitionDelay = '0ms'; }); setStep(parseFloat(rng.value)); });
     window.addEventListener('resize', layout);

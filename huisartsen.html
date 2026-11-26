@@ -288,6 +288,8 @@ footer strong { color: var(--ink); }
 .top nav { margin-left: auto; }
 @media (max-width: 560px) { .switch { padding-left: 6px; margin-left: 0; } .switch a { padding: 5px 6px; font-size: .76rem; } }
 .nl-note { font-size: .9rem; color: var(--ink-soft); background: var(--band); border-radius: 10px; padding: 8px 14px; justify-self: start; }
+.side-label { font-size: .92rem; color: var(--ink-soft); min-width: 13em; }
+.side-label b { color: var(--ink); }
 
 :root { --accent: var(--pink); --accent-ink: #b0025a; --band: var(--tint-pink); }
 </style>
@@ -325,7 +327,7 @@ footer strong { color: var(--ink); }
 <section class="band plain" id="kaart" aria-labelledby="h-kaart">
   <div class="wrap">
     <div class="band-head"><span class="kicker">De huisartskaart</span><h2 id="h-kaart">Waar let je op, en waar verwijs je naartoe?</h2>
-      <p>De voorkant zet de belangrijkste signalen op een rij, en de misvattingen waar je bewust van moet zijn. De achterkant laat zien hoe je patiënten verwijst naar het Ksyos Menopauze zorgpad, voor extra ondersteuning als het spreekuur niet genoeg is.</p></div>
+      <p>De voorkant zet de belangrijkste signalen op een rij, en de misvattingen waar je bewust van moet zijn. De achterkant laat zien hoe je patiënten verwijst naar het Ksyos Menopauze zorgpad, voor extra tijd, aandacht en begeleiding op maat.</p></div>
     <p class="flip-hint">Tik op de kaart om hem om te draaien.</p>
     <button type="button" class="flip" id="hakaart" data-title="Huisartskaart" data-labels="Huisartskaart, voorkant: Herken de perimenopauze|Huisartskaart, achterkant: Meer tijd nodig dan het spreekuur heeft?" data-button="ha-turn" data-zoom="ha-zoom">
       <span class="card"><span class="face front"><img src="img/ha-1.webp" alt="Huisartskaart voorkant: Herken de perimenopauze. Veranderde cyclus, let ook op andere klachten, hoeveel hinder en waar."></span><span class="face back"><img src="img/ha-2.webp" alt="Huisartskaart achterkant: verwijzen naar Ksyos Menopauze via ZorgDomein, en de vier stappen van het zorgpad."></span></span>
@@ -543,8 +545,13 @@ footer strong { color: var(--ink); }
       fan.classList.toggle('back', s === 'back'); orient();
       $$('[data-side]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-side') === s)); });
       labelBlades();
+      var lab = $('#fan-side'), tb = $('#fan-turn');
+      if (lab && tb) lab.textContent = tb.getAttribute(s === 'back' ? 'data-back' : 'data-front');
+      if (tb) tb.setAttribute('aria-pressed', String(s === 'back'));
     }
     $$('[data-side]').forEach(function (x) { x.addEventListener('click', function () { setSide(x.getAttribute('data-side')); }); });
+    var turnBtn = $('#fan-turn');
+    if (turnBtn) turnBtn.addEventListener('click', function () { setSide(side === 'front' ? 'back' : 'front'); });
     var rng = $('#fan-open');
     if (rng) rng.addEventListener('input', function () { blades.forEach(function (b) { b.style.transitionDelay = '0ms'; }); setStep(parseFloat(rng.value)); });
     window.addEventListener('resize', layout);

@@ -288,6 +288,8 @@ footer strong { color: var(--ink); }
 .top nav { margin-left: auto; }
 @media (max-width: 560px) { .switch { padding-left: 6px; margin-left: 0; } .switch a { padding: 5px 6px; font-size: .76rem; } }
 .nl-note { font-size: .9rem; color: var(--ink-soft); background: var(--band); border-radius: 10px; padding: 8px 14px; justify-self: start; }
+.side-label { font-size: .92rem; color: var(--ink-soft); min-width: 13em; }
+.side-label b { color: var(--ink); }
 
 :root { --accent: var(--pink); --accent-ink: #b0025a; --band: var(--tint-pink); }
 </style>
@@ -326,7 +328,7 @@ footer strong { color: var(--ink); }
 <section class="band plain" id="kaart" aria-labelledby="h-card">
   <div class="wrap">
     <div class="band-head"><span class="kicker">The GP card</span><h2 id="h-card">What to look for, and where to refer?</h2>
-      <p>The front lists the key signals and the misconceptions to be aware of. The back shows how to refer patients to the Ksyos Menopause care pathway, for extra support when a regular consultation is not enough.</p></div>
+      <p>The front lists the key signals and the misconceptions to be aware of. The back shows how to refer patients to the Ksyos Menopause care pathway, for extra time, attention and tailored support.</p></div>
     <p class="flip-hint">Tap the card to turn it over.</p>
     <button type="button" class="flip" id="hakaart" data-title="GP card" data-labels="GP card, front: Recognise the perimenopause (in Dutch)|GP card, back: Need more time than a consultation allows? (in Dutch)" data-button="ha-turn" data-zoom="ha-zoom">
       <span class="card"><span class="face front"><img src="img/ha-1.webp" alt="GP card front (in Dutch): recognise the perimenopause. Changed cycle, look for other symptoms, how much burden and where."></span><span class="face back"><img src="img/ha-2.webp" alt="GP card back (in Dutch): referring to Ksyos Menopause via ZorgDomein, and the four steps of the care pathway."></span></span>
@@ -389,7 +391,7 @@ footer strong { color: var(--ink); }
 </footer>
 
 <dialog id="dlg" aria-labelledby="dlg-title"><div class="dlg"><div class="dlg-top"><strong id="dlg-title"></strong><button type="button" class="iconbtn" id="dlg-close" aria-label="Close"></button></div><div class="dlg-body" id="dlg-body"></div><div class="dlg-bottom" id="dlg-bottom"></div></div></dialog>
-<script type="application/json" id="i18n">{"Vorig blad": "Previous blade", "Volgend blad": "Next blade", " Bekijk voorkant": " Show front", " Draai om": " Turn over", "Alle bladen": "All blades", " Bekijk achterkant": " Show back", "Downloaden lukt niet in deze weergave. Open de pagina in een browser.": "Downloading does not work in this view. Open the page in a browser.", "Bestand wordt klaargezet…": "Preparing the file…", "Even geduld en probeer het zo nog eens.": "Please wait a moment and try again.", "De pdf kan nu niet gemaakt worden. Probeer het later opnieuw.": "The PDF cannot be made right now. Please try again later.", "Ingevuld op ": "Completed on ", "Greene JG. Constructing a standard climacteric scale. Maturitas 1998;29:25-31; herdruk Maturitas 2008;61:78-83. Ingevuld via Ksyos.": "Greene JG. Constructing a standard climacteric scale. Maturitas 1998;29:25-31; reprinted in Maturitas 2008;61:78-83. Completed via Ksyos.", "Pdf wordt klaargezet…": "Preparing the PDF…", "Opslaan lukt niet in deze weergave. Open de pagina in een browser.": "Saving does not work in this view. Open the page in a browser.", "Blad ": "Blade ", ". Tik om groot te bekijken.": ". Tap to view it large.", ". Tik om om te draaien.": ". Tap to turn it over.", "Voorkant": "Front", "Achterkant": "Back", "Kaart": "Card", " van 21 ingevuld": " of 21 answered", " van 21 vragen)": " of 21 questions)", "Klachten": "Symptoms", "Scores": "Scores", "Totaal (0-63)": "Total (0-63)"}</script>
+<script type="application/json" id="i18n">{"Vorig blad": "Previous", "Volgend blad": "Next", " Bekijk voorkant": " Show front", " Draai om": " Turn over", "Alle bladen": "All parts", " Bekijk achterkant": " Show back", "Downloaden lukt niet in deze weergave. Open de pagina in een browser.": "Downloading does not work in this view. Open the page in a browser.", "Bestand wordt klaargezet…": "Preparing the file…", "Even geduld en probeer het zo nog eens.": "Please wait a moment and try again.", "De pdf kan nu niet gemaakt worden. Probeer het later opnieuw.": "The PDF cannot be made right now. Please try again later.", "Ingevuld op ": "Completed on ", "Greene JG. Constructing a standard climacteric scale. Maturitas 1998;29:25-31; herdruk Maturitas 2008;61:78-83. Ingevuld via Ksyos.": "Greene JG. Constructing a standard climacteric scale. Maturitas 1998;29:25-31; reprinted in Maturitas 2008;61:78-83. Completed via Ksyos.", "Pdf wordt klaargezet…": "Preparing the PDF…", "Opslaan lukt niet in deze weergave. Open de pagina in een browser.": "Saving does not work in this view. Open the page in a browser.", "Blad ": "Part ", ". Tik om groot te bekijken.": ". Tap to view it large.", ". Tik om om te draaien.": ". Tap to turn it over.", "Voorkant": "Front", "Achterkant": "Back", "Kaart": "Card", " van 21 ingevuld": " of 21 answered", " van 21 vragen)": " of 21 questions)", "Klachten": "Symptoms", "Scores": "Scores", "Totaal (0-63)": "Total (0-63)"}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 (function () {
@@ -544,8 +546,13 @@ footer strong { color: var(--ink); }
       fan.classList.toggle('back', s === 'back'); orient();
       $$('[data-side]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-side') === s)); });
       labelBlades();
+      var lab = $('#fan-side'), tb = $('#fan-turn');
+      if (lab && tb) lab.textContent = tb.getAttribute(s === 'back' ? 'data-back' : 'data-front');
+      if (tb) tb.setAttribute('aria-pressed', String(s === 'back'));
     }
     $$('[data-side]').forEach(function (x) { x.addEventListener('click', function () { setSide(x.getAttribute('data-side')); }); });
+    var turnBtn = $('#fan-turn');
+    if (turnBtn) turnBtn.addEventListener('click', function () { setSide(side === 'front' ? 'back' : 'front'); });
     var rng = $('#fan-open');
     if (rng) rng.addEventListener('input', function () { blades.forEach(function (b) { b.style.transitionDelay = '0ms'; }); setStep(parseFloat(rng.value)); });
     window.addEventListener('resize', layout);
