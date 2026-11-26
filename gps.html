@@ -296,15 +296,16 @@ footer strong { color: var(--ink); }
 .tl-h { width: 100%; height: auto; display: block; overflow: visible; }
 .tl-v { display: none; width: 100%; max-width: 340px; height: auto; margin: 0 auto; overflow: visible; }
 .tl-h text, .tl-v text { font-family: var(--f-body); }
-.tl-term { font-size: 15px; font-weight: 700; letter-spacing: .03em; }
-.tl-sub { font-size: 15px; font-weight: 500; fill: var(--ink-soft); }
-.tl-over { font-size: 14px; font-weight: 700; letter-spacing: .12em; fill: #473D3C; }
+.tl-term { font-family: var(--f-display); font-size: 18px; font-weight: 700; letter-spacing: .02em; }
+.tl-sub { font-size: 15.5px; font-weight: 500; fill: #5d514f; }
+.tl-over { font-family: var(--f-display); font-size: 21px; font-weight: 700; letter-spacing: .08em; fill: #473D3C; }
 .tl-grey { fill: #8a7c70; }
 .tl-or { fill: #D96A00; }
 .tl-pink { fill: #E50376; }
-.tl-small { font-size: 12.8px; font-weight: 700; }
+.tl-small { font-family: var(--f-display); font-size: 13.5px; font-weight: 700; }
 .tl-vert { fill: #473D3C; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
-@media (max-width: 720px) { .tl-h { display: none; } .tl-v { display: block; } }
+.tl-over-m { display: none; max-width: 340px; margin: 16px auto 0; color: var(--ink-soft); }
+@media (max-width: 720px) { .tl-h { display: none; } .tl-v { display: block; } .tl-over-m { display: block; } }
 
 :root { --accent: var(--pink); --accent-ink: #b0025a; --band: var(--tint-pink); }
 </style>

@@ -296,15 +296,16 @@ footer strong { color: var(--ink); }
 .tl-h { width: 100%; height: auto; display: block; overflow: visible; }
 .tl-v { display: none; width: 100%; max-width: 340px; height: auto; margin: 0 auto; overflow: visible; }
 .tl-h text, .tl-v text { font-family: var(--f-body); }
-.tl-term { font-size: 15px; font-weight: 700; letter-spacing: .03em; }
-.tl-sub { font-size: 15px; font-weight: 500; fill: var(--ink-soft); }
-.tl-over { font-size: 14px; font-weight: 700; letter-spacing: .12em; fill: #473D3C; }
+.tl-term { font-family: var(--f-display); font-size: 18px; font-weight: 700; letter-spacing: .02em; }
+.tl-sub { font-size: 15.5px; font-weight: 500; fill: #5d514f; }
+.tl-over { font-family: var(--f-display); font-size: 21px; font-weight: 700; letter-spacing: .08em; fill: #473D3C; }
 .tl-grey { fill: #8a7c70; }
 .tl-or { fill: #D96A00; }
 .tl-pink { fill: #E50376; }
-.tl-small { font-size: 12.8px; font-weight: 700; }
+.tl-small { font-family: var(--f-display); font-size: 13.5px; font-weight: 700; }
 .tl-vert { fill: #473D3C; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
-@media (max-width: 720px) { .tl-h { display: none; } .tl-v { display: block; } }
+.tl-over-m { display: none; max-width: 340px; margin: 16px auto 0; color: var(--ink-soft); }
+@media (max-width: 720px) { .tl-h { display: none; } .tl-v { display: block; } .tl-over-m { display: block; } }
 
 :root { --accent: var(--orange); --accent-ink: #9a5200; --band: var(--tint-orange); }
 </style>
@@ -322,39 +323,40 @@ footer strong { color: var(--ink); }
 
 <section class="band plain tl-band" id="termen" aria-labelledby="h-termen-nl">
   <div class="wrap">
-    <div class="band-head"><span class="kicker">Termen uitgelegd</span><h2 id="h-termen-nl">Wat is <span class="hl">wanneer?</span></h2><p>De overgang is de periode rond je laatste menstruatie. Je eierstokken maken dan steeds minder hormonen. Let op: rond je 40e kun je dit al gaan merken.</p></div>
-    <svg class="tl-h" viewBox="0 0 1000 272" role="img" aria-label="Tijdlijn: vóór de overgang; perimenopauze, je hormonen schommelen en je cyclus kan veranderen; menopauze, je laatste menstruatie; postmenopauze, vanaf 1 jaar na je laatste menstruatie. Perimenopauze en menopauze vallen samen onder de overgang.">
+    <div class="band-head"><span class="kicker">Termen uitgelegd</span><h2 id="h-termen-nl">Wat is <span class="hl">wanneer?</span></h2><p>Rond de overgang hoor je veel verschillende termen. Dat kan verwarrend zijn. Hieronder zie je welke fases er zijn, en wanneer.</p></div>
+    <svg class="tl-h" viewBox="0 0 1000 352" role="img" aria-label="Tijdlijn: vóór de overgang; perimenopauze, je hormonen schommelen en je cyclus kan veranderen; menopauze, je laatste menstruatie; postmenopauze, vanaf 1 jaar na je laatste menstruatie. Perimenopauze en menopauze vallen samen onder de overgang.">
   <defs>
     <linearGradient id="g-pre-h-nl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F1EEEA"/><stop offset="1" stop-color="#ABA199"/></linearGradient>
     <linearGradient id="g-post-h-nl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ABA199"/><stop offset="1" stop-color="#F4F1EE"/></linearGradient>
   </defs>
-  <rect x="232" y="148" width="522" height="112" rx="14" fill="#fff" stroke="#473D3C" stroke-width="2" stroke-linejoin="round"/>
-  <text class="tl-over" x="493.0" y="243" text-anchor="middle">DE OVERGANG</text>
-  <path d="M40 168 H250 L266 188 L250 208 H40 A20 20 0 0 1 40 168 Z" fill="url(#g-pre-h-nl)" stroke="#473D3C" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M250 168 H720 L736 188 L720 208 H250 L266 188 Z" fill="#FE9E31" stroke="#473D3C" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M720 168 H959 L985 188 L959 208 H720 L736 188 Z" fill="url(#g-post-h-nl)" stroke="#473D3C" stroke-width="2" stroke-linejoin="round"/>
-  <text class="tl-term tl-grey" x="36" y="40">VÓÓR DE OVERGANG</text><text class="tl-sub" x="36" y="62"><tspan x="36" dy="0">je cyclus is nog</tspan><tspan x="36" dy="18">zoals je gewend bent</tspan></text><path d="M46 104 L140 188" stroke="#473D3C" stroke-width="1.2" fill="none"/><circle cx="140" cy="188" r="3.6" fill="#473D3C"/>
-  <text class="tl-term tl-or" x="300" y="40">PERIMENOPAUZE</text><text class="tl-sub" x="300" y="62"><tspan x="300" dy="0">je hormonen schommelen,</tspan><tspan x="300" dy="18">je cyclus kan veranderen</tspan></text><path d="M310 104 L430 188" stroke="#473D3C" stroke-width="1.2" fill="none"/><circle cx="430" cy="188" r="3.6" fill="#473D3C"/>
-  <text class="tl-term tl-pink" x="560" y="40">MENOPAUZE</text><text class="tl-sub" x="560" y="62"><tspan x="560" dy="0">je laatste menstruatie</tspan></text><path d="M570 104 L690 188" stroke="#473D3C" stroke-width="1.2" fill="none"/>
-  <circle cx="690" cy="188" r="8" fill="#E50376" stroke="#473D3C" stroke-width="2"/>
-  <text class="tl-term tl-grey" x="790" y="40">POSTMENOPAUZE</text><text class="tl-sub" x="790" y="62"><tspan x="790" dy="0">vanaf 1 jaar na je</tspan><tspan x="790" dy="18">laatste menstruatie</tspan></text><path d="M800 104 L860 188" stroke="#473D3C" stroke-width="1.2" fill="none"/><circle cx="860" cy="188" r="3.6" fill="#473D3C"/>
+  <path d="M270 146 H805 A20 20 0 0 1 825 166 V324 A20 20 0 0 1 805 344 H270 A20 20 0 0 1 250 324 V166 A20 20 0 0 1 270 146 Z" fill="#fff" stroke="#473D3C" stroke-width="2" stroke-linejoin="round"/>
+  <text class="tl-over" x="274" y="244">DE OVERGANG</text><text class="tl-sub" x="274" y="270"><tspan x="274" dy="0">De jaren rond je laatste menstruatie. Je eierstokken</tspan><tspan x="274" dy="20">maken steeds minder hormonen. Rond je 40e kun je</tspan><tspan x="274" dy="20">dit al gaan merken.</tspan></text>
+  <path d="M40 168 H250 L262.88 184.10 Q266 188 262.88 191.90 L250 208 H40 A20 20 0 0 1 40 168 Z" fill="url(#g-pre-h-nl)" stroke="#473D3C" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M250 168 H720 L732.88 184.10 Q736 188 732.88 191.90 L720 208 H250 L262.88 191.90 Q266 188 262.88 184.10 L250 168 Z" fill="#FE9E31" stroke="#473D3C" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M720 168 H959 L981.04 184.95 Q985 188 981.04 191.05 L959 208 H720 L732.88 191.90 Q736 188 732.88 184.10 L720 168 Z" fill="url(#g-post-h-nl)" stroke="#473D3C" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M46 18 V188" stroke="#473D3C" stroke-width="1.4"/><text class="tl-term tl-grey" x="58" y="34">VÓÓR DE OVERGANG</text><text class="tl-sub" x="58" y="58"><tspan x="58" dy="0">je cyclus is nog</tspan><tspan x="58" dy="19">zoals je gewend bent</tspan></text><circle cx="46" cy="188" r="4.5" fill="#473D3C"/>
+  <path d="M312 18 V188" stroke="#473D3C" stroke-width="1.4"/><text class="tl-term tl-or" x="324" y="34">PERIMENOPAUZE</text><text class="tl-sub" x="324" y="58"><tspan x="324" dy="0">je hormonen schommelen,</tspan><tspan x="324" dy="19">je cyclus kan veranderen</tspan></text><circle cx="312" cy="188" r="4.5" fill="#473D3C"/>
+  <path d="M690 18 V188" stroke="#473D3C" stroke-width="1.4"/><text class="tl-term tl-pink" x="678" y="34" text-anchor="end">MENOPAUZE</text><text class="tl-sub" x="678" y="58" text-anchor="end"><tspan x="678" dy="0">je laatste</tspan><tspan x="678" dy="19">menstruatie</tspan></text>
+  <circle cx="690" cy="188" r="9" fill="#E50376" stroke="#473D3C" stroke-width="2"/>
+  <path d="M785 18 V188" stroke="#473D3C" stroke-width="1.4"/><text class="tl-term tl-grey" x="797" y="34">POSTMENOPAUZE</text><text class="tl-sub" x="797" y="58"><tspan x="797" dy="0">vanaf 1 jaar na je</tspan><tspan x="797" dy="19">laatste menstruatie</tspan></text><circle cx="785" cy="188" r="4.5" fill="#473D3C"/>
 </svg>
-    <svg class="tl-v" viewBox="0 0 240 396" role="img" aria-label="Tijdlijn: vóór de overgang; perimenopauze, je hormonen schommelen en je cyclus kan veranderen; menopauze, je laatste menstruatie; postmenopauze, vanaf 1 jaar na je laatste menstruatie. Perimenopauze en menopauze vallen samen onder de overgang.">
+    <svg class="tl-v" viewBox="0 0 240 426" role="img" aria-label="Tijdlijn: vóór de overgang; perimenopauze, je hormonen schommelen en je cyclus kan veranderen; menopauze, je laatste menstruatie; postmenopauze, vanaf 1 jaar na je laatste menstruatie. Perimenopauze en menopauze vallen samen onder de overgang.">
   <defs>
     <linearGradient id="g-pre-v-nl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F1EEEA"/><stop offset="1" stop-color="#ABA199"/></linearGradient>
     <linearGradient id="g-post-v-nl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ABA199"/><stop offset="1" stop-color="#F4F1EE"/></linearGradient>
   </defs>
-  <rect x="2" y="58" width="234" height="204" rx="10" fill="#fff" stroke="#473D3C" stroke-width="1.3"/>
-  <path d="M34 12 Q34 2 44 2 H60 Q70 2 70 12 V68 L52 82 L34 68 Z" fill="url(#g-pre-v-nl)" stroke="#473D3C" stroke-width="1.6" stroke-linejoin="round"/>
-  <path d="M34 68 L52 82 L70 68 V236 L52 250 L34 236 Z" fill="#FE9E31" stroke="#473D3C" stroke-width="1.6" stroke-linejoin="round"/>
-  <path d="M34 236 L52 250 L70 236 V374 L52 392 L34 374 Z" fill="url(#g-post-v-nl)" stroke="#473D3C" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M2 82 A14 14 0 0 1 16 68 H222 A14 14 0 0 1 236 82 V313 A14 14 0 0 1 222 327 H16 A14 14 0 0 1 2 313 Z" fill="#fff" stroke="#473D3C" stroke-width="1.3"/>
+  <path d="M34 68 V16 A14 14 0 0 1 48 2 H56 A14 14 0 0 1 70 16 V68 L55.95 78.93 Q52 82 48.05 78.93 L34 68 Z" fill="url(#g-pre-v-nl)" stroke="#473D3C" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M34 68 L48.05 78.93 Q52 82 55.95 78.93 L70 68 V236 L55.95 246.93 Q52 250 48.05 246.93 L34 236 Z" fill="#FE9E31" stroke="#473D3C" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M34 236 L48.05 246.93 Q52 250 55.95 246.93 L70 236 V404 L55.54 418.46 Q52 422 48.46 418.46 L34 404 Z" fill="url(#g-post-v-nl)" stroke="#473D3C" stroke-width="1.6" stroke-linejoin="round"/>
   <circle cx="52" cy="210" r="6.5" fill="#E50376" stroke="#473D3C" stroke-width="1.6"/>
-  <text class="tl-vert" transform="translate(19 160) rotate(-90)" text-anchor="middle">DE OVERGANG</text>
+  <text class="tl-vert" transform="translate(19 197.5) rotate(-90)" text-anchor="middle">DE OVERGANG</text>
   <text class="tl-grey tl-small" x="84" y="16"><tspan x="84" dy="0">vóór de</tspan><tspan x="84" dy="15.5">overgang</tspan></text>
   <text class="tl-or tl-small" x="84" y="84"><tspan x="84" dy="0">PERI-</tspan><tspan x="84" dy="15.5">MENOPAUZE:</tspan><tspan x="84" dy="15.5">je hormonen</tspan><tspan x="84" dy="15.5">schommelen,</tspan><tspan x="84" dy="15.5">je cyclus kan</tspan><tspan x="84" dy="15.5">veranderen</tspan></text>
   <text class="tl-pink tl-small" x="84" y="194"><tspan x="84" dy="0">MENOPAUZE:</tspan><tspan x="84" dy="15.5">je laatste</tspan><tspan x="84" dy="15.5">menstruatie</tspan></text>
-  <text class="tl-grey tl-small" x="84" y="284"><tspan x="84" dy="0">POST-</tspan><tspan x="84" dy="15.5">MENOPAUZE:</tspan><tspan x="84" dy="15.5">vanaf 1 jaar</tspan><tspan x="84" dy="15.5">na je laatste</tspan><tspan x="84" dy="15.5">menstruatie</tspan></text>
+  <text class="tl-grey tl-small" x="84" y="349"><tspan x="84" dy="0">POST-</tspan><tspan x="84" dy="15.5">MENOPAUZE:</tspan><tspan x="84" dy="15.5">vanaf 1 jaar</tspan><tspan x="84" dy="15.5">na je laatste</tspan><tspan x="84" dy="15.5">menstruatie</tspan></text>
 </svg>
+    <p class="tl-over-m"><strong>De overgang:</strong> De jaren rond je laatste menstruatie. Je eierstokken maken steeds minder hormonen. Rond je 40e kun je dit al gaan merken.</p>
   </div>
 </section>
 
